@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "662745611859",
+    "project_id": "plastic-radar-2",
+    "storage_bucket": "plastic-radar-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662745611859:android:328d64d7758c4c95b9d0a6",
+        "android_client_info": {
+          "package_name": "com.example.plastic_radar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzaGEgAXbfZXk8nCEIt6j3tPTkmdbJGBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
