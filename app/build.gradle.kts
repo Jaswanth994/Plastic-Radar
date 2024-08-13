@@ -49,7 +49,7 @@ android {
         }
     }
 }
-
+//nnnn
 dependencies {
 
     implementation(libs.androidx.core.ktx)
