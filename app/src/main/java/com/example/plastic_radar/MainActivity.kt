@@ -44,6 +44,8 @@ import kotlinx.coroutines.delay
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.AnnotatedString
@@ -51,6 +53,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
+import com.example.plastic_radar.ui.theme.Plastic_RadarTheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 class MainActivity : ComponentActivity() {
@@ -61,6 +65,28 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AppContent(auth)
+            Plastic_RadarTheme {
+                SetBarColor(color = MaterialTheme.colorScheme.background)
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ){
+
+                }
+            }
+        }
+    }
+
+
+
+
+    @Composable
+    fun SetBarColor(color: Color){
+        val systemUiController = rememberSystemUiController()
+        SideEffect {
+            systemUiController.setSystemBarsColor(
+            color = color
+            )
         }
     }
 
@@ -483,6 +509,32 @@ class MainActivity : ComponentActivity() {
     }
 
 }
+
+
+@Preview
+@Composable
+fun HomeScreen(){
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar()
+        }
+    ) { padding ->
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
+
+
+        }
+
+    }
+}
+
+
+
+
 //commit
 data class User(
     val firstName: String?,
