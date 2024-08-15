@@ -12,7 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 
 val Orange = Color(0xFFFFA500) // Example for Orange color
-val Teal = Color(0xFF008080)   // Example for Teal color
+val Teal = Color(0xFF2A8D8D)   // Example for Teal color
 val Green = Color(0xFF4CAF50)  // Example for a shade of Green
 val Yellow = Color(0xFFFFEB3B) // Example for Yellow color
 val Blue = Color(0xFF2196F3)   // Example for Blue color

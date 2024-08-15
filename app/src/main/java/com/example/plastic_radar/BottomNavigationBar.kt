@@ -19,11 +19,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.plastic_radar.ui.theme.Teal
 import com.example.plastic_radar.data.BottomNavigation
-import androidx.compose.ui.res.painterResource
+//import androidx.compose.ui.res.painterResource
+//import com.example.plastic_radar.ui.theme.*
 val items: List<BottomNavigation> =listOf(
     BottomNavigation(
         title = "Home",
-        icon = Icons.Rounded.Home,
+        icon = Icons.Default.Home,
         route = "home"
     ),
     BottomNavigation(
