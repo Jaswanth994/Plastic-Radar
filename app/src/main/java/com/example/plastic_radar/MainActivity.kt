@@ -526,22 +526,14 @@ fun HomeScreen() {
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            // Fixed top section (won't scroll)
-            TitleSection()
-
-            // Scrollable section
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
-            ) {
+                TitleSection()
                 AutoScrollingCardCarousel()
                 Heading1()
                 PlasticTypes()
                 // Add other sections here...
-            }
         }
     }
+
 }
 
 
