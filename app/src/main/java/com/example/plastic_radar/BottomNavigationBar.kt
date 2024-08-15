@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.plastic_radar.ui.theme.Teal
 import com.example.plastic_radar.data.BottomNavigation
@@ -67,7 +69,8 @@ fun BottomNavigationBar(){
                             text = item.title,
                             color = Color.Black
                         )
-                    }
+                    },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand) // Adding hover effect here
                 )
             }
         }
