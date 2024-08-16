@@ -1,4 +1,4 @@
-package com.example.plastic_radar
+package com.example.plastic_radar.homescreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
