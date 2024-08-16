@@ -15,12 +15,13 @@ fun AuthOrMainScreen(auth: FirebaseAuth) {
             }
         )
     } else {
-        MainScreen(
-            user = user!!,
-            onSignOut = {
-                auth.signOut()
-                user = null
-            }
-        )
+//        MainScreen(
+//            user = user!!,
+//            onSignOut = {
+//                auth.signOut()
+//                user = null
+//            }
+//        )
+        MainScreen()
     }
 }

@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppContent(auth)
+
 
             Plastic_RadarTheme {
                 SetBarColor(color = MaterialTheme.colorScheme.background)
@@ -37,7 +37,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ){
-                    HomeScreen()
+                    AppContent(auth)
+//                    HomeScreen()
                 }
             }
         }
@@ -54,29 +55,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-@Preview
-@Composable
-fun HomeScreen() {
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar()
-        }
-    ) { padding ->
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-        ) {
-            TitleSection()
-            AutoScrollingCardCarousel()
-            Heading1()
-            PlasticTypes()
-            // Add other sections here...
-        }
-    }
-
-}
-

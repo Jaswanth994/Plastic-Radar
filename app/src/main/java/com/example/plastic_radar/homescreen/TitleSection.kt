@@ -49,7 +49,6 @@ fun TitleSection(){
         }
         Box(
             modifier = Modifier
-                .clickable { }
                 .padding(10.dp)
                 .pointerHoverIcon(PointerIcon.Hand)
                 .background(Teal,
@@ -57,6 +56,8 @@ fun TitleSection(){
         ) {
             Row(
                 modifier = Modifier
+                    .clickable{
+                    }
                     .padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {

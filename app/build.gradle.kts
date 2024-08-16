@@ -85,4 +85,7 @@ dependencies {
     implementation (libs.ui.tooling.preview)
     implementation (libs.androidx.lifecycle.runtime.ktx.v261)
     implementation (libs.androidx.activity.compose.v172)
+
+    implementation ("androidx.navigation:navigation-compose:2.5.3")
+
 }
