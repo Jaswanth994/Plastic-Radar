@@ -37,7 +37,6 @@ import com.google.firebase.auth.FirebaseUser
 //        }
 //    }
 //}
-
 @Composable
 fun MainScreen(user: FirebaseUser, onSignOut: () -> Unit) {
     Column(
@@ -61,5 +60,4 @@ fun MainScreen(user: FirebaseUser, onSignOut: () -> Unit) {
         }
     }
 }
-
 

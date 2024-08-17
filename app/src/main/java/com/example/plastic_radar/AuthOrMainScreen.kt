@@ -17,8 +17,8 @@ fun AuthOrMainScreen(navController: NavController,auth: FirebaseAuth) {
             }
         )
     } else {
-        navController.navigate(Routes.HomeScreen){
-            popUpTo(navController.graph.startDestinationId){
+        navController.navigate(Routes.HomeScreen) {
+            popUpTo(navController.graph.startDestinationId) {
                 saveState = true
             }
             launchSingleTop = true

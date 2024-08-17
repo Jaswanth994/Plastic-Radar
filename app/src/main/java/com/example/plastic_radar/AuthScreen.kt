@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
@@ -73,6 +74,7 @@ fun signUp(
         }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
     var email by remember { mutableStateOf("") }
@@ -192,6 +194,7 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                     onClick = { isSignIn = !isSignIn },
                     modifier = Modifier.align(Alignment.Center)
                 )
+
             }
 
             Spacer(modifier = Modifier.height(8.dp))

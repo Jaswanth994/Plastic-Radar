@@ -49,7 +49,9 @@ fun AppNavigation() {
         composable("home"){
             HomeScreen(navController)
         }
-
+        composable("dispose"){
+            DisposeScreen(navController)
+        }
 
     }
 }
