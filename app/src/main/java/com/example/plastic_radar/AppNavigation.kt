@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.plastic_radar.Profile.ProfileScreen
+import com.example.plastic_radar.Routes.onboardingScreen
 import com.example.plastic_radar.homescreen.HomeScreen
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -52,5 +53,9 @@ fun AppNavigation() {
         composable("dispose"){
             DisposeScreen(navController)
         }
+
+//        composable(Routes.onboardingScreen){
+//            onboardingScreen()
+//        }
     }
 }

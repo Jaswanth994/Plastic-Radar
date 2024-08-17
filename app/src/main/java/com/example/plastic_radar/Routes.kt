@@ -10,6 +10,6 @@ object Routes {
     var StateSelectionScreen = "state_selection_screen"
     var DistrictSelectionScreen = "district_selection_screen"
     var ChangeCountryScreen = "change_country"
-
+    var onboardingScreen = "onboarding_screen"
 
 }
