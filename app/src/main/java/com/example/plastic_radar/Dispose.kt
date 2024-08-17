@@ -38,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -98,6 +99,7 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
                 .background(colorResource(id = R.color.green)) // Set the background color to green
+                .clip(RoundedCornerShape(30.dp))
         ) {
             Text(
                 text = "Add Address",
