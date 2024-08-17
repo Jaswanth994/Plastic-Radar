@@ -11,6 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.plastic_radar.Routes
+
 //import com.example.plastic_radar.WalletCard
 
 @Composable
@@ -50,7 +52,7 @@ fun ProfileScreen(navController: NavController) {
                 label = item.second,
                 onClick = {
                     when (item.second) {
-                        "Change Country" -> navController.navigate("change_country")
+                        "Change Country" -> navController.navigate(Routes.ChangeCountryScreen)
 //                        "Language" -> navController.navigate("change_language")
                     }
                 }

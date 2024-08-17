@@ -9,7 +9,7 @@ object Routes {
     var AuthOrMainScreen = "auth_or_main_screen"
     var StateSelectionScreen = "state_selection_screen"
     var DistrictSelectionScreen = "district_selection_screen"
-
+    var ChangeCountryScreen = "change_country"
 
 
 }
