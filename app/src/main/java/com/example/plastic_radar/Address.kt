@@ -252,7 +252,7 @@ fun AddressScreenContent() {
 @Composable
 fun AddressFormContent(paddingValues: PaddingValues) {
     var selectedOptions by remember { mutableStateOf(setOf<String>()) }
-    val availableOptions = listOf("Nylon", "HeavyPlastic", "Water", "Air","Heat")
+    val availableOptions = listOf("Nylon", "Hard-Plastic", "Soft-Plastic", "PVC","PET","Acrylic")
     val quantity = listOf("Bulk Quantity","Small Quantity")
 
     Image(
@@ -479,10 +479,11 @@ fun SelectableChip(
         shape = RoundedCornerShape(16.dp),
         tonalElevation = 4.dp // Adds shadow effect similar to elevation
     ) {
-        Box(
+        Column(
             modifier = Modifier
                 .padding(horizontal = 0.dp, vertical = 8.dp),
-
+            horizontalAlignment = Alignment.CenterHorizontally,//Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
 
         ) {
             Text(
