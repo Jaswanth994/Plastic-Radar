@@ -1,6 +1,7 @@
 package com.example.plastic_radar
 
 
+import AppContent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

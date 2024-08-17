@@ -1,5 +1,3 @@
-package com.example.plastic_radar
-
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -8,7 +6,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.core.splashscreen.SplashScreen
 import androidx.lifecycle.Lifecycle
+import com.example.plastic_radar.AuthOrMainScreen
+import com.example.plastic_radar.SplashScreen
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 

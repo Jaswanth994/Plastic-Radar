@@ -13,6 +13,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.FirebaseUser
 
+//import androidx.compose.ui.unit.dp
+//import com.google.firebase.auth.FirebaseUser
+//
 //@Composable
 //fun MainScreen(user: FirebaseUser, onSignOut: () -> Unit) {
 //
@@ -30,7 +33,7 @@ import com.google.firebase.auth.FirebaseUser
 //        }
 //    }
 //}
-
+//
 @Composable
 fun MainScreen(user: FirebaseUser, onSignOut: () -> Unit) {
     Column(
