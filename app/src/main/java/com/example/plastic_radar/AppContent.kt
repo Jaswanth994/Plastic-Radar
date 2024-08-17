@@ -9,24 +9,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 
 @Composable
-fun AppContent(auth: FirebaseAuth) {
+fun AppContent(navController: NavController, auth: FirebaseAuth) {
     var showSplashScreen by remember { mutableStateOf(true) }
 
-    LaunchedEffect(showSplashScreen) {
+    LaunchedEffect(Unit) {
         delay(2000)
         showSplashScreen = false
     }
+
     Crossfade(targetState = showSplashScreen, label = "") { isSplashScreenVisible ->
         if (isSplashScreenVisible) {
-            SplashScreen {
-                showSplashScreen = false
-            }
+            SplashScreen(navController) // Pass navController here
         } else {
-            AuthOrMainScreen(auth)
+            AuthOrMainScreen(navController, auth )
+             // Modify this to handle navigation as well
         }
     }
 }

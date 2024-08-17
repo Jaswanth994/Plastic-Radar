@@ -25,11 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.plastic_radar.Routes
 import com.example.plastic_radar.ui.theme.Teal
 
-@Preview
 @Composable
-fun TitleSection(){
+fun TitleSection(navController: NavController){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -57,6 +58,10 @@ fun TitleSection(){
             Row(
                 modifier = Modifier
                     .clickable{
+                        navController.navigate(Routes.StateSelectionScreen) {
+                            popUpTo(Routes.HomeScreen){ inclusive = false; }
+                        }
+
                     }
                     .padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically

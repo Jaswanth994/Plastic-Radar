@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.plastic_radar.AppContent
+import com.example.plastic_radar.AppNavigation
 import com.example.plastic_radar.ui.theme.Plastic_RadarTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -30,15 +31,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-
             Plastic_RadarTheme {
                 SetBarColor(color = MaterialTheme.colorScheme.background)
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ){
-                    AppContent(auth)
-//                    HomeScreen()
+//                    AppContent(auth)
+                    AppNavigation()
                 }
             }
         }

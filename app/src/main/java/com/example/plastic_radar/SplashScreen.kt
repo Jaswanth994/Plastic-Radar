@@ -17,15 +17,18 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navigateToAuthOrMainScreen: () -> Unit) {
+fun SplashScreen(navController: NavController) {
     var rotationState by remember { mutableFloatStateOf(0f) }
 
-    LaunchedEffect(true) {
-        delay(2000)
-        navigateToAuthOrMainScreen()
+    LaunchedEffect(Unit) {
+        delay(2000) // Delay for splash screen duration
+        navController.navigate(Routes.AuthOrMainScreen) {
+            popUpTo(Routes.SplashScreen) { inclusive = true } // Remove splash screen from back stack
+        }
     }
 
     LaunchedEffect(rotationState) {

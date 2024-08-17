@@ -30,7 +30,7 @@ fun Heading1() {
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Sell Scrap, Earn Plastic",
+            text = "Sell Scrap, Earn Money",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White

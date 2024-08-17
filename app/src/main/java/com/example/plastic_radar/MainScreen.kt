@@ -38,53 +38,28 @@ import com.google.firebase.auth.FirebaseUser
 //    }
 //}
 
-//@Composable
-//fun MainScreen(user: FirebaseUser, onSignOut: () -> Unit) {
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .padding(16.dp),
-//        horizontalAlignment = Alignment.CenterHorizontally, // Center-align items horizontally within the Column
-//        verticalArrangement = Arrangement.Center // Center items vertically within the Column
-//    ) {
-//        Text(
-//            text = "Welcome, ${user.email}",
-//            textAlign = TextAlign.Center, // Center-align text
-//            modifier = Modifier.padding(bottom = 16.dp) // Add padding below the text
-//        )
-//
-//        Button(
-//            onClick = onSignOut,
-//            modifier = Modifier.padding(top = 16.dp)
-//        ) {
-//            Text(text = "Sign Out")
-//        }
-//    }
-//}
-
-
-
-@Preview
 @Composable
-fun MainScreen() {
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar()
-        }
-    ) { padding ->
+fun MainScreen(user: FirebaseUser, onSignOut: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally, // Center-align items horizontally within the Column
+        verticalArrangement = Arrangement.Center // Center items vertically within the Column
+    ) {
+        Text(
+            text = "Welcome, ${user.email}",
+            textAlign = TextAlign.Center, // Center-align text
+            modifier = Modifier.padding(bottom = 16.dp) // Add padding below the text
+        )
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
+        Button(
+            onClick = onSignOut,
+            modifier = Modifier.padding(top = 16.dp)
         ) {
-            TitleSection()
-            AutoScrollingCardCarousel()
-            Heading1()
-            PlasticTypes()
-            // Add other sections here...
+            Text(text = "Sign Out")
         }
     }
-
 }
+
 

@@ -17,3 +17,6 @@ val Green = Color(0xFF4CAF50)  // Example for a shade of Green
 val Yellow = Color(0xFFFFEB3B) // Example for Yellow color
 val Blue = Color(0xFF2196F3)   // Example for Blue color
 val Red = Color(0xFFF44336)    // Example for Red color
+val myexprcolor = Color(0xFFE0F7FA) // Example for Purple color
+val Brown = Color(0xFF795548)  // Example for Brown color
+val Gray = Color(0xFF9E9E9E)   // Example for Gray

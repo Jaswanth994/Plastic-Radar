@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.plastic_radar.ui.theme.Teal
 import com.example.plastic_radar.data.BottomNavigation
 //import androidx.compose.ui.res.painterResource
@@ -29,14 +30,14 @@ val items: List<BottomNavigation> =listOf(
         route = "home"
     ),
     BottomNavigation(
-        title = "Price List",
+        title = "Dispose",
         icon = Icons.Default.Wallet,
-        route = "price_list"
+        route = "dispose"
     ),
     BottomNavigation(
-        title = "BWG",
+        title = "Collector",
         icon = Icons.Default.Notifications,
-        route = "bwg"
+        route = "collector"
     ),
     BottomNavigation(
         title = "Profile",
@@ -45,17 +46,26 @@ val items: List<BottomNavigation> =listOf(
     )
 
 )
-@Preview
+
+
 @Composable
-fun BottomNavigationBar(){
+fun BottomNavigationBar(navController: NavController){
     NavigationBar {
         Row (
             modifier = Modifier.background(Color.White)
         ){
             items.forEach { item->
                 NavigationBarItem(
-                    selected = item.route == "profile",
-                    onClick = { /*TODO*/ },
+                    selected = item.route == navController.currentDestination?.route,
+                    onClick = {
+                        navController.navigate(item.route) {
+                            popUpTo(navController.graph.startDestinationId){
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
                     icon = {
                         Icon(
                             imageVector = item.icon,

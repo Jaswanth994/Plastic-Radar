@@ -24,7 +24,7 @@ val Typography = Typography(
         lineHeight = 28.sp,
         letterSpacing = 0.sp,
         background = Color.White,
-        color = Teal
+        color = Color.Black
     ),
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,
