@@ -17,9 +17,9 @@ fun AppNavigation() {
         composable(Routes.SplashScreen) {
             SplashScreen(navController)
         }
-        composable(Routes.AppContent) {
-            AppContent(navController,Firebase.auth)
-        }
+//        composable(Routes.AppContent) {
+//            AppContent(navController,Firebase.auth)
+//        }
         composable(Routes.AuthOrMainScreen) {
             AuthOrMainScreen(navController,Firebase.auth)
         }
