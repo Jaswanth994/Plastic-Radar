@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material3.Icon
@@ -16,34 +17,35 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun DashboardItem(icon: ImageVector, label: String, onClick: () -> Unit) {
+fun DashboardItem(icon: ImageVector, label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color(0xFFE0FFE0), shape = RoundedCornerShape(8.dp))
-            .padding(16.dp)
-            .clickable { onClick() },
+        modifier = modifier
+            .padding(horizontal = 16.dp)
+            .background(Color(0xFF81C784), shape = MaterialTheme.shapes.medium) // Softer green background with rounded corners
+            .clickable { onClick() }
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = icon,
             contentDescription = label,
-            tint = Color(0xFF008000),
+            tint = Color.White,
             modifier = Modifier.size(24.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = label,
-            fontSize = 18.sp,
-            color = Color(0xFF008000)
+            color = Color.White,
+            fontSize = 18.sp
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewDashboardItem() {
-    DashboardItem(icon = Icons.Default.Public, label = "Change Country", onClick = {})
+fun PreviewProfileScreen() {
+    ProfileScreen(navController = rememberNavController())
 }

@@ -16,6 +16,11 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,10 +32,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.plastic_radar.Routes
+import com.example.plastic_radar.firbase.getStateFromFirebase
+import com.example.plastic_radar.firbase.saveStateToFirebase
 import com.example.plastic_radar.ui.theme.Teal
 
 @Composable
 fun TitleSection(navController: NavController){
+    var location by remember { mutableStateOf("Location22") }
+    LaunchedEffect(Unit) {
+        getStateFromFirebase { retrievedState ->
+            location = retrievedState
+        }
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -75,7 +88,7 @@ fun TitleSection(navController: NavController){
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
-                    text = "Location",
+                    text = location,
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,

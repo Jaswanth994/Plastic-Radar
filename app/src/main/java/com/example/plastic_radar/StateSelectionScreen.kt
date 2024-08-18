@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.plastic_radar.firbase.saveStateToFirebase
 import com.example.plastic_radar.homescreen.PlasticWasteCard
 import com.example.plastic_radar.ui.theme.Teal
 
@@ -78,23 +79,6 @@ fun StateSelectionScreen(navController: NavController) {
             }
         }
     }
-//
-//        states.chunked(1).forEach { row ->
-//            Row(
-//                modifier = Modifier.fillMaxWidth(),
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                row.forEach { (state, icon) ->
-//                    StateCard(state = state, icon = icon) {
-//                      navController.navigate(Routes.DistrictSelectionScreen + "/$state")  {
-//                        popUpTo("state_selection") { inclusive = false }
-//                    }
-//                    }
-//                }
-//            }
-//            Spacer(modifier = Modifier.height(2.dp))
-//        }
-//    }
 }
 
 @Composable
@@ -104,7 +88,8 @@ fun StateCard(state: String, icon: Int,navController: NavController) {
             .size(150.dp)
             .padding(horizontal = 8.dp,vertical = 8.dp)
             .clickable {
-                navController.navigate(Routes.DistrictSelectionScreen + "/$state")
+                saveStateToFirebase(state)  // Save state to Firebase
+                navController.navigate(Routes.HomeScreen)
              },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F7FA)),

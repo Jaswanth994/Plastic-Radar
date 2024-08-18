@@ -1,12 +1,12 @@
 package com.example.plastic_radar
 
+//import com.example.plastic_radar.Profile.ProfileScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.plastic_radar.Profile.ChangeCountryScreen
 import com.example.plastic_radar.Profile.ProfileScreen
-import com.example.plastic_radar.Routes.onboardingScreen
 import com.example.plastic_radar.homescreen.HomeScreen
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -60,7 +60,7 @@ fun AppNavigation() {
         }
 
         composable(Routes.ChangeCountryScreen){
-            ChangeCountryScreen()
+            ChangeCountryScreen(navController)
         }
     }
 }

@@ -22,7 +22,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController) {
-    var rotationState by remember { mutableFloatStateOf(0f) }
+//    var rotationState by remember { mutableFloatStateOf(0f) }
 
     LaunchedEffect(Unit) {
         delay(2000) // Delay for splash screen duration
@@ -30,13 +30,13 @@ fun SplashScreen(navController: NavController) {
             popUpTo(Routes.SplashScreen) { inclusive = true } // Remove splash screen from back stack
         }
     }
-
-    LaunchedEffect(rotationState) {
-        while (true) {
-            delay(16)
-            rotationState += 1f
-        }
-    }
+//
+//    LaunchedEffect(rotationState) {
+//        while (true) {
+//            delay(16)
+////            rotationState += 1f
+//        }
+//    }
 
     val scale by animateFloatAsState(
         targetValue = 1f,
@@ -50,13 +50,13 @@ fun SplashScreen(navController: NavController) {
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.pla),
+            painter = painterResource(id = R.drawable.applogo),
             contentDescription = null,
             modifier = Modifier
                 .size(300.dp)
                 .clip(CircleShape)
                 .scale(scale)
-                .rotate(rotationState)
+//                .rotate(rotationState)
         )
     }
 }
