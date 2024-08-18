@@ -59,6 +59,12 @@ import androidx.compose.material.DropdownMenuItem
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.zIndex
 import java.util.Calendar
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 
 data class Address(
     val name: String = "",
@@ -101,6 +107,8 @@ fun getAddresses(onSuccess: (List<Address>) -> Unit, onError: (Exception) -> Uni
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DisposeScreen(navContoller: NavHostController) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -111,9 +119,15 @@ fun DisposeScreen(navContoller: NavHostController) {
                     }
                 }
             )
-        }
+        },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { paddingValues ->
-        AddressFormContent(paddingValues)
+        AddressFormContent(paddingValues) { message ->
+            coroutineScope.launch {
+
+                snackbarHostState.showSnackbar(message)
+            }
+        }
     }
 
 }
@@ -121,7 +135,7 @@ fun DisposeScreen(navContoller: NavHostController) {
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddressFormContent(paddingValues: PaddingValues) {
+fun AddressFormContent(paddingValues: PaddingValues, onShowSnackbar: (String) -> Unit) {
     var selectedOptions by remember { mutableStateOf(setOf<String>()) }
     val availableOptions = listOf("Nylon", "Hard-Plastic", "Soft-Plastic", "PVC", "PET", "Acrylic")
     val quantity = listOf("Bulk Quantity", "Small Quantity")
@@ -231,25 +245,7 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                     ),
                     shape = RoundedCornerShape(16.dp)
                 )
-//                OutlinedTextField(
-//                    value = city,
-//                    onValueChange = { city = it },
-//                    label = { Text(text = "City", fontWeight = FontWeight.Bold) },
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(bottom = 16.dp),
-//                    colors = TextFieldDefaults.textFieldColors(
-//                        focusedTextColor = Color.Black,
-//                        unfocusedTextColor = Color.Black,
-//                        focusedIndicatorColor = Color.Blue,
-//                        unfocusedIndicatorColor = Color.Gray,
-//                        cursorColor = Color.Black,
-//                        focusedLabelColor = Color.Black,
-//                        unfocusedLabelColor = Color.Black,
-//                        containerColor = colorResource(id = R.color.cream)
-//                    ),
-//                    shape = RoundedCornerShape(16.dp)
-//                )
+
 
             Box(modifier = Modifier
                 //.fillMaxWidth()
@@ -426,6 +422,7 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                             onSuccess = { "Your Address Saved"/* Handle success, e.g., show a message */ },
                             onError = { e -> "Try Again"/* Handle error, e.g., show an error message */ }
                         )
+                        onShowSnackbar("Address Sucessfully Added!")
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -508,11 +505,11 @@ fun SelectableChip(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun AddressScreenPreview() {
-    AddressFormContent(PaddingValues(0.dp))
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun AddressScreenPreview() {
+//    AddressFormContent(PaddingValues(0.dp))
+//}
 
 @Composable
 fun AddressListScreen() {
