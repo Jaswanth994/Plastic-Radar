@@ -88,5 +88,7 @@ dependencies {
     implementation (libs.androidx.activity.compose.v172)
 
     implementation (libs.androidx.navigation.compose)
+    implementation (libs.firebase.firestore.v2420)
+
 
 }

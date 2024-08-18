@@ -67,7 +67,8 @@ fun signUp(
     password: String,
     firstName: String,
     lastName: String,
-    onSignedUp: (FirebaseUser) -> Unit
+    onSignedUp: (FirebaseUser) -> Unit,
+    onSignUpError: (String) -> Unit
 ) {
     auth.createUserWithEmailAndPassword(email, password)
         .addOnCompleteListener { task ->
@@ -77,8 +78,15 @@ fun signUp(
                     onSignedUp(user)
                 }
             }
+                else{
+                    val errorMessage = task.exception?.message ?: "Sign Up failed"
+                    onSignUpError(errorMessage)
+                }
         }
 }
+
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -126,7 +134,7 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                         unfocusedTextColor = Color.Black,
                         focusedIndicatorColor = Color.Blue,
                         unfocusedIndicatorColor = Color.Gray,
-                        cursorColor = Color.White,
+                        cursorColor = Color.Black,
                         focusedLabelColor = Color.Black,
                         unfocusedLabelColor = Color.Black,
                         containerColor = colorResource(id =R.color.cream)
@@ -149,7 +157,7 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                         unfocusedTextColor = Color.Black,
                         focusedIndicatorColor = Color.Blue,
                         unfocusedIndicatorColor = Color.Gray,
-                        cursorColor = Color.White,
+                        cursorColor = Color.Black,
                         focusedLabelColor = Color.Black,
                         unfocusedLabelColor = Color.Black,
                         containerColor = colorResource(id =R.color.cream)
@@ -173,7 +181,7 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                     unfocusedTextColor = Color.Black,
                     focusedIndicatorColor = Color.Blue,
                     unfocusedIndicatorColor = Color.Gray,
-                    cursorColor = Color.White,
+                    cursorColor = Color.Black,
                     focusedLabelColor = Color.Black,
                     unfocusedLabelColor = Color.Black,
                     containerColor = colorResource(id =R.color.cream)
@@ -205,7 +213,7 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                     unfocusedTextColor = Color.Black,
                     focusedIndicatorColor = Color.Blue,
                     unfocusedIndicatorColor = Color.Gray,
-                    cursorColor = Color.White,
+                    cursorColor = Color.Black,
                     focusedLabelColor = Color.Black,
                     unfocusedLabelColor = Color.Black,
                     containerColor = colorResource(id =R.color.cream)
@@ -232,7 +240,7 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                         signIn(
                             Firebase.auth, email, password,
                             onSignedIn = { signedInUser -> onSignedIn(signedInUser) },
-                            onSignInError = { errorMessage -> myErrorMessage = errorMessage }
+                            onSignInError = { errorMessage -> myErrorMessage = errorMessage },
                         )
                     } else {
                         signUp(
@@ -240,10 +248,13 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                             email,
                             password,
                             firstName,
-                            lastName
-                        ) { signedInUser ->
-                            onSignedIn(signedInUser)
-                        }
+                            lastName,
+                            onSignedUp = { signedInUser -> onSignedIn(signedInUser) },
+                            onSignUpError = { errorMessage -> myErrorMessage = errorMessage }
+                            )
+//                        { signedInUser ->
+//                            onSignedIn(signedInUser)
+//                        }
                     }
                 },
                 modifier = Modifier
