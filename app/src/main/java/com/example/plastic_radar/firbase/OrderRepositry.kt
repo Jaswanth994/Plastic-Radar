@@ -1,4 +1,4 @@
-package com.example.plastic_radar.firebase
+ package com.example.plastic_radar.firebase
 
 import android.annotation.SuppressLint
 import com.google.firebase.auth.FirebaseAuth
