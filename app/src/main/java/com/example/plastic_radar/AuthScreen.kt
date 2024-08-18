@@ -32,6 +32,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.example.plastic_radar.ui.theme.*
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+
+
+
 
 fun signIn(
     auth: FirebaseAuth,
@@ -90,12 +96,13 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
     ) {
         // Background image
         Image(
-            painter = painterResource(id = R.drawable.background1), // Replace with your background image resource
+            painter = painterResource(id = R.drawable.background2), // Replace with your background image resource
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxSize().alpha(0.7f) // You can adjust the alpha value for transparency
-                //.size(300.dp)
+                .fillMaxSize()
+                .alpha(0.7f) // You can adjust the alpha value for transparency
+            //.size(300.dp)
         )
         Column(
             modifier = Modifier
@@ -109,35 +116,80 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                 TextField(
                     value = firstName,
                     onValueChange = { firstName = it },
-                    modifier = Modifier.fillMaxWidth().padding(8.dp),
-                    label = { Text("First Name") }
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    label = { Text(text="First Name",
+                        fontWeight = FontWeight.Bold ) },
+                    colors = TextFieldDefaults.textFieldColors(
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black,
+                        focusedIndicatorColor = Color.Blue,
+                        unfocusedIndicatorColor = Color.Gray,
+                        cursorColor = Color.White,
+                        focusedLabelColor = Color.Black,
+                        unfocusedLabelColor = Color.Black,
+                        containerColor = colorResource(id =R.color.cream)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
                 TextField(
                     value = lastName,
                     onValueChange = { lastName = it },
-                    modifier = Modifier.fillMaxWidth().padding(8.dp),
-                    label = { Text("Last Name") }
-                )
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    label = { Text(text="Last Name",
+                        fontWeight = FontWeight.Bold     ) },
+
+                    colors = TextFieldDefaults.textFieldColors(
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black,
+                        focusedIndicatorColor = Color.Blue,
+                        unfocusedIndicatorColor = Color.Gray,
+                        cursorColor = Color.White,
+                        focusedLabelColor = Color.Black,
+                        unfocusedLabelColor = Color.Black,
+                        containerColor = colorResource(id =R.color.cream)
+                    ),
+                    shape = RoundedCornerShape(16.dp) )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
                 value = email,
                 onValueChange = { email = it },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                label = { Text("Email") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                label = { Text(text="Email",
+                    fontWeight = FontWeight.Bold) },
                 leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    focusedIndicatorColor = Color.Blue,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.White,
+                    focusedLabelColor = Color.Black,
+                    unfocusedLabelColor = Color.Black,
+                    containerColor = colorResource(id =R.color.cream)
+                ),
+                shape = RoundedCornerShape(16.dp),
             )
 
             Spacer(modifier = Modifier.height(8.dp))
             TextField(
                 value = password,
                 onValueChange = { password = it },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                label = { Text("Password") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                label = { Text(text="Password",
+                    fontWeight = FontWeight.Bold) },
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                 visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
@@ -147,7 +199,18 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                             if (isPasswordVisible) Icons.Default.Lock else Icons.Default.Search
                         Icon(imageVector = icon, contentDescription = "Toggle Password Visibility")
                     }
-                }
+                },
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    focusedIndicatorColor = Color.Blue,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.White,
+                    focusedLabelColor = Color.Black,
+                    unfocusedLabelColor = Color.Black,
+                    containerColor = colorResource(id =R.color.cream)
+                ),
+                shape = RoundedCornerShape(16.dp),
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -156,7 +219,9 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                 Text(
                     text = myErrorMessage!!,
                     color = Color.Red,
-                    modifier = Modifier.fillMaxWidth().padding(8.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
                 )
             }
 
@@ -181,16 +246,38 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                         }
                     }
                 },
-                modifier = Modifier.fillMaxWidth().height(60.dp).padding(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorResource(id =R.color.green), // Change to your color
+                    contentColor = Color.White)
             ) {
                 Text(text = if (isSignIn) "Sign In" else "Sign Up", fontSize = 18.sp)
             }
 
             Box(
-                modifier = Modifier.fillMaxWidth().height(50.dp).padding(8.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .padding(8.dp)
             ) {
+//                ClickableText(
+//
+//                    text = AnnotatedString(if (isSignIn) "Create an account" else "Already have an account? Sign In"),
+//                    onClick = { isSignIn = !isSignIn },
+//                    modifier = Modifier
+//                        .align(Alignment.Center)
+//                )
                 ClickableText(
-                    text = AnnotatedString(if (isSignIn) "Create an account" else "Already have an account? Sign In"),
+                    text = buildAnnotatedString {
+                        append(
+                            if (isSignIn) "Create an account"
+                            else "Already have an account? Sign In"
+                        )
+                        addStyle(style = SpanStyle(fontWeight = FontWeight.Bold), start = 0, end = length)
+                    },
                     onClick = { isSignIn = !isSignIn },
                     modifier = Modifier.align(Alignment.Center)
                 )
@@ -201,7 +288,3 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
         }
     }
 }
-
-
-
-

@@ -1,6 +1,7 @@
 package com.example.plastic_radar
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonDefaults.shape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,28 +37,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 
-
-//class AddressScreen : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            AddressScreenContent()
-//        }
-//    }
-//}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DisposeScreen(navController: NavController) {
+fun DisposeScreen(navContoller: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -66,7 +61,6 @@ fun DisposeScreen(navController: NavController) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 }
-
             )
         }
     ) { paddingValues ->
@@ -78,14 +72,18 @@ fun DisposeScreen(navController: NavController) {
 @Composable
 fun AddressFormContent(paddingValues: PaddingValues) {
     var selectedOptions by remember { mutableStateOf(setOf<String>()) }
-    val availableOptions = listOf("Nylon", "Hard-Plastic", "Soft-Plastic", "PVC","PET","Acrylic")
-    val quantity = listOf("Bulk Quantity","Small Quantity")
+    val availableOptions = listOf("Nylon", "Hard-Plastic", "Soft-Plastic", "PVC", "PET", "Acrylic")
+    val quantity = listOf("Bulk Quantity", "Small Quantity")
+
+    var name by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
+    var addressName by remember { mutableStateOf("") }
+    var city by remember { mutableStateOf("") }
 
     Image(
         painter = painterResource(id = R.drawable.background2), // Replace with your background image resource
         contentDescription = null,
         contentScale = ContentScale.Crop,
-
         modifier = Modifier
             .fillMaxSize()
             .alpha(0.7f) // You can adjust the alpha value for transparency
@@ -95,16 +93,25 @@ fun AddressFormContent(paddingValues: PaddingValues) {
             .padding(paddingValues)
             .padding(16.dp)
     ) {
-        Text(
-            text = "ADD NEW ADDRESS",
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 16.dp),
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
+                .background(colorResource(id = R.color.green)) // Set the background color to green
+                .clip(RoundedCornerShape(30.dp))
+        ) {
+            Text(
+                text = "Add Address",
+                fontWeight = FontWeight.Bold,
+                //style = MaterialTheme.typography.titleLarge,
+                //color = Color.White, // Optional: Change text color to white for better contrast
+                modifier = Modifier.padding(8.dp) // Add padding inside the box for the text
+            )
+        }
 
         OutlinedTextField(
-            value = "",
-            onValueChange = { /* Handle text change */ },
+            value = name,
+            onValueChange = { name = it },
             label = { Text(text = "Name", fontWeight = FontWeight.Bold) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -114,7 +121,7 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                 unfocusedTextColor = Color.Black,
                 focusedIndicatorColor = Color.Blue,
                 unfocusedIndicatorColor = Color.Gray,
-                cursorColor = Color.White,
+                cursorColor = Color.Black,
                 focusedLabelColor = Color.Black,
                 unfocusedLabelColor = Color.Black,
                 containerColor = colorResource(id = R.color.cream)
@@ -122,8 +129,8 @@ fun AddressFormContent(paddingValues: PaddingValues) {
             shape = RoundedCornerShape(16.dp)
         )
         OutlinedTextField(
-            value = "",
-            onValueChange = { /* Handle text change */ },
+            value = phoneNumber,
+            onValueChange = { phoneNumber = it },
             label = { Text(text = "Phone Number", fontWeight = FontWeight.Bold) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -133,7 +140,7 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                 unfocusedTextColor = Color.Black,
                 focusedIndicatorColor = Color.Blue,
                 unfocusedIndicatorColor = Color.Gray,
-                cursorColor = Color.White,
+                cursorColor = Color.Black,
                 focusedLabelColor = Color.Black,
                 unfocusedLabelColor = Color.Black,
                 containerColor = colorResource(id = R.color.cream)
@@ -141,8 +148,8 @@ fun AddressFormContent(paddingValues: PaddingValues) {
             shape = RoundedCornerShape(16.dp)
         )
         OutlinedTextField(
-            value = "",
-            onValueChange = { /* Handle text change */ },
+            value = addressName,
+            onValueChange = { addressName = it },
             label = { Text(text = "Address Name (Home, Work)", fontWeight = FontWeight.Bold) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -152,7 +159,7 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                 unfocusedTextColor = Color.Black,
                 focusedIndicatorColor = Color.Blue,
                 unfocusedIndicatorColor = Color.Gray,
-                cursorColor = Color.White,
+                cursorColor = Color.Black,
                 focusedLabelColor = Color.Black,
                 unfocusedLabelColor = Color.Black,
                 containerColor = colorResource(id = R.color.cream)
@@ -160,8 +167,8 @@ fun AddressFormContent(paddingValues: PaddingValues) {
             shape = RoundedCornerShape(16.dp)
         )
         OutlinedTextField(
-            value = "",
-            onValueChange = { /* Handle text change */ },
+            value = city,
+            onValueChange = { city = it },
             label = { Text(text = "City", fontWeight = FontWeight.Bold) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -171,19 +178,38 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                 unfocusedTextColor = Color.Black,
                 focusedIndicatorColor = Color.Blue,
                 unfocusedIndicatorColor = Color.Gray,
-                cursorColor = Color.White,
+                cursorColor = Color.Black,
                 focusedLabelColor = Color.Black,
                 unfocusedLabelColor = Color.Black,
                 containerColor = colorResource(id = R.color.cream)
             ),
             shape = RoundedCornerShape(16.dp)
         )
-        Text(
-            text = "Select the type of plastic",
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 16.dp),
+//        Text(
+//            text = "Select the type of plastic",
+//            fontWeight = FontWeight.Bold,
+//            style = MaterialTheme.typography.titleLarge,
+//            modifier = Modifier.padding(bottom = 16.dp),
+//        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+                .background(colorResource(id = R.color.green)
+                ), // Set the background color to green
+
         )
+
+        {
+            Text(
+                text = "Select Type of Plastic",
+                fontWeight = FontWeight.Bold,
+                //style = MaterialTheme.typography.titleLarge,
+                //color = Color.White, // Optional: Change text color to white for better contrast
+                modifier = Modifier.padding(8.dp) // Add padding inside the box for the text
+            )
+        }
+
 
         Box(
             modifier = Modifier.fillMaxWidth(),
@@ -212,12 +238,23 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                 }
             }
         }
-        Text(
-            text = "Select quantity of Plastic",
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 16.dp),
-        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
+                .background(colorResource(id = R.color.green)),
+
+            ) {
+            Text(
+                text = "Select Quantity of Plastic",
+                fontWeight = FontWeight.Bold,
+                //style = MaterialTheme.typography.titleLarge,
+                //color = Color.White, // Optional: Change text color to white for better contrast
+                modifier = Modifier.padding(8.dp) // Add padding inside the box for the text
+            )
+        }
+
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
@@ -226,9 +263,8 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                 columns = GridCells.Fixed(2),
                 modifier = Modifier.fillMaxWidth(0.8f), // Adjust width to center
                 contentPadding = PaddingValues(8.dp),
-                horizontalArrangement = Arrangement.Center,//Arrangement.spacedBy(10.dp),
+                horizontalArrangement = Arrangement.Center, //Arrangement.spacedBy(10.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-
             ) {
                 items(quantity.size) { index ->
                     val option = quantity[index]
@@ -255,14 +291,13 @@ fun AddressFormContent(paddingValues: PaddingValues) {
                 .padding(8.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = colorResource(id = R.color.green), // Change to your color
-                contentColor = Color.White
+                contentColor = Color.Black
             )
         ) {
-            Text(text = "SAVE ADDRESS", fontWeight = FontWeight.Bold)
+            Text(text = "SAVE ADDRESS", fontWeight = FontWeight.Bold, color = Color.White)
         }
     }
 }
-
 
 @Composable
 fun SelectableChip(
@@ -284,28 +319,22 @@ fun SelectableChip(
         Column(
             modifier = Modifier
                 .padding(horizontal = 0.dp, vertical = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,//Arrangement.spacedBy(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally, //Arrangement.spacedBy(10.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
-
         ) {
             Text(
                 text = label,
-                color = Color.Black,
-                fontWeight =  FontWeight.Bold,
-                textAlign= TextAlign.Center,
+                color = contentColor,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyMedium,
             )
         }
     }
 }
 
-
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun AddressScreenPreview() {
-//    AddressScreen()
-//}
-
-
-
+@Preview(showBackground = true)
+@Composable
+fun AddressScreenPreview() {
+    AddressFormContent(PaddingValues(0.dp))
+}
