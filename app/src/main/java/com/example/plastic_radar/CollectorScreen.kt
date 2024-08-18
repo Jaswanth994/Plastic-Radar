@@ -3,6 +3,8 @@ package com.example.plastic_radar
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -107,10 +109,13 @@ fun SearchBar(searchQuery: String, onSearchQueryChange: (String) -> Unit) {
     }
 }
 
+
 @Composable
 fun OrderList(orders: List<Order>) {
-    Column {
-        for (order in orders) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        items(orders) { order ->
             OrderCard(order = order)
             Spacer(modifier = Modifier.height(8.dp))
         }

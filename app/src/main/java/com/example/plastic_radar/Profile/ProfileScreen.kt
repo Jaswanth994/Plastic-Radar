@@ -3,6 +3,8 @@ package com.example.plastic_radar.Profile
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +20,8 @@ import androidx.compose.material.icons.filled.*
 
 import com.example.plastic_radar.Routes
 import com.example.plastic_radar.homescreen.BottomNavigationBar
+import com.example.plastic_radar.homescreen.TitleSection
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,22 +47,24 @@ fun ProfileScreen(navController: NavController) {
         },
         bottomBar = { BottomNavigationBar(navController) }
     ) { innerPadding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
                 .background(Color(0xFFF1F8E9)) // Light green with a yellow tint for a fresh look
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
             // Profile Section
-            ProfileCard(name = "ROHITH", phoneNumber = "9014977891")
-
-            Spacer(modifier = Modifier.height(16.dp))
+            item {
+                ProfileCard(name = "ROHITH", phoneNumber = "9014977891")
+                Spacer(modifier = Modifier.height(16.dp))
+            }
 
             // Wallet Section (Add your WalletCard or Wallet related composables here)
-
-            Spacer(modifier = Modifier.height(16.dp))
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
 
             // Menu Items
             val items = listOf(
@@ -73,7 +79,7 @@ fun ProfileScreen(navController: NavController) {
                 Pair(Icons.AutoMirrored.Filled.ExitToApp, "Log Out")
             )
 
-            items.forEach { item ->
+            items(items) { item ->
                 DashboardItem(
                     icon = item.first,
                     label = item.second,
