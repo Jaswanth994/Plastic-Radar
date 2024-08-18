@@ -51,7 +51,9 @@ android {
 }
 //nnnn
 dependencies {
-
+    implementation (libs.androidx.ui.v140) // Replace with the latest stable version
+    implementation (libs.androidx.foundation) // Replace with the latest stable version
+    implementation (libs.material3)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
