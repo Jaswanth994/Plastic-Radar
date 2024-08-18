@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.plastic_radar.Profile.ChangeCountryScreen
 import com.example.plastic_radar.Profile.ProfileScreen
 import com.example.plastic_radar.Routes.onboardingScreen
 import com.example.plastic_radar.homescreen.HomeScreen
@@ -56,6 +57,10 @@ fun AppNavigation() {
 
         composable(Routes.onboardingScreen){
             OnboardingScreen(navController)
+        }
+
+        composable(Routes.ChangeCountryScreen){
+            ChangeCountryScreen()
         }
     }
 }

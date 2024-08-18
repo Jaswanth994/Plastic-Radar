@@ -89,7 +89,7 @@ fun OnboardingScreen(navController: NavController) {
                 .align(Alignment.BottomEnd)
                 .padding(16.dp)
         ) {
-            Text(text = if (currentPage == onboardingPages.size - 1) "Finish" else "Next")
+            Text(text = if (currentPage == onboardingPages.size - 1) "Get Started" else "Next")
         }
     }
 }
