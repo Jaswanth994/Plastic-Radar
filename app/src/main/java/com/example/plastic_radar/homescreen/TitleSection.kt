@@ -38,7 +38,7 @@ import com.example.plastic_radar.ui.theme.Teal
 
 @Composable
 fun TitleSection(navController: NavController){
-    var location by remember { mutableStateOf("Location22") }
+    var location by remember { mutableStateOf("Location") }
     LaunchedEffect(Unit) {
         getStateFromFirebase { retrievedState ->
             location = retrievedState
@@ -59,7 +59,6 @@ fun TitleSection(navController: NavController){
                 fontWeight = FontWeight.Bold,
 //                style = MaterialTheme.typography.titleLarge
             )
-
         }
         Box(
             modifier = Modifier
@@ -74,7 +73,6 @@ fun TitleSection(navController: NavController){
                         navController.navigate(Routes.StateSelectionScreen) {
                             popUpTo(Routes.HomeScreen){ inclusive = false; }
                         }
-
                     }
                     .padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically

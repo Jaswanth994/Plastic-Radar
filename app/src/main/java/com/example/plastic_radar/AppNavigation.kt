@@ -1,13 +1,13 @@
 package com.example.plastic_radar
 
-//import com.example.plastic_radar.Profile.ProfileScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.plastic_radar.homescreen.HomeScreen
 import com.example.plastic_radar.Profile.ChangeCountryScreen
 import com.example.plastic_radar.Profile.ProfileScreen
-import com.example.plastic_radar.homescreen.HomeScreen
+import com.example.plastic_radar.Profile.ScrapOrderHistoryScreen
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -39,12 +39,6 @@ fun AppNavigation() {
             }
         }
 
-//        composable("dispose") {
-//            DisposeScreen(navController)
-//        }
-//        composable("collector") {
-//            CollectorScreen(navController)
-//        }
         composable("profile") {
             ProfileScreen(navController)
         }
@@ -61,6 +55,14 @@ fun AppNavigation() {
 
         composable(Routes.ChangeCountryScreen){
             ChangeCountryScreen(navController)
+        }
+
+        composable(Routes.ScrapOrderHistoryScreen){
+            ScrapOrderHistoryScreen(navController)
+        }
+
+        composable("collector"){
+            CollectorScreen()
         }
     }
 }

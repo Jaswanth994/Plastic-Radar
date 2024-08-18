@@ -8,11 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Chat
@@ -21,10 +18,6 @@ import androidx.compose.material.icons.filled.*
 
 import com.example.plastic_radar.Routes
 import com.example.plastic_radar.homescreen.BottomNavigationBar
-import com.example.plastic_radar.homescreen.TitleSection
-
-
-
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,7 +63,7 @@ fun ProfileScreen(navController: NavController) {
             // Menu Items
             val items = listOf(
                 Pair(Icons.Default.Public, "Change Country"),
-                Pair(Icons.Default.Description, "Scrap Order History"),
+                Pair(Icons.Default.Description, "scrap_order_history_screen"),
                 Pair(Icons.Default.Policy, "Policies"),
                 Pair(Icons.Default.Info, "About Us"),
                 Pair(Icons.Default.Star, "Rate Us"),
@@ -87,7 +80,8 @@ fun ProfileScreen(navController: NavController) {
                     onClick = {
                         when (item.second) {
                             "Change Country" -> navController.navigate(Routes.ChangeCountryScreen)
-                            // Add other cases for different routes
+                            "scrap_order_history_screen" -> navController.navigate(Routes.ScrapOrderHistoryScreen)
+                        // Add other cases for different routes
                         }
                     },
                     modifier = Modifier
