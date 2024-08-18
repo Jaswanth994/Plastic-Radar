@@ -26,7 +26,7 @@ fun SplashScreen(navController: NavController) {
 
     LaunchedEffect(Unit) {
         delay(2000) // Delay for splash screen duration
-        navController.navigate(Routes.AuthOrMainScreen) {
+        navController.navigate(Routes.onboardingScreen) {
             popUpTo(Routes.SplashScreen) { inclusive = true } // Remove splash screen from back stack
         }
     }

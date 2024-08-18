@@ -54,8 +54,8 @@ fun AppNavigation() {
             DisposeScreen(navController)
         }
 
-//        composable(Routes.onboardingScreen){
-//            onboardingScreen()
-//        }
+        composable(Routes.onboardingScreen){
+            OnboardingScreen(navController)
+        }
     }
 }
