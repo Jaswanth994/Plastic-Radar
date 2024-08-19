@@ -29,7 +29,7 @@ fun SplashScreenUI() {
         Spacer(modifier = Modifier.height(16.dp)) // Space between logo and text
         Text(
             text = "Welcome to Plastic Radar",
-            style = MaterialTheme.typography.h5,
+            style = MaterialTheme.typography.headlineSmall,
             color = Color.Black
         )
     }
