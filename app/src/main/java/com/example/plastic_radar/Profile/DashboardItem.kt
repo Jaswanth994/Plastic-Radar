@@ -11,11 +11,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
-
 
 @Composable
 fun DashboardItem(
@@ -24,21 +24,19 @@ fun DashboardItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
         modifier = modifier
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = label,
-            tint = Color.White // White icon for better contrast
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(text = label, style = androidx.compose.material3.MaterialTheme.typography.bodyMedium.copy(color = Color.White)) // White text for better contrast
+        Icon(imageVector = icon, contentDescription = label, tint = Color.White)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = label, color = Color.White, textAlign = TextAlign.Center)
     }
 }
+
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewProfileScreen() {

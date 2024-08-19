@@ -32,8 +32,8 @@ fun PlasticTypes() {
         PlasticWasteItem(R.drawable.pvc,"PVC", "$1.0/kg"),
         PlasticWasteItem(R.drawable.watertank, "Water Tank", "$0.7/kg"),
         PlasticWasteItem(R.drawable.hardplastic, "Hard Plastic", "$1.1/kg"),
-//        PlasticWasteItem(R.drawable.PS, "PS", "$0.9/kg"),
-//        PlasticWasteItem(R.drawable.ABS, "ABS", "$1.5/kg"),
+     PlasticWasteItem(R.drawable.ps, "PS", "$0.9/kg"),
+        PlasticWasteItem(R.drawable.abs, "ABS", "$1.5/kg"),
         PlasticWasteItem(R.drawable.nylon, "Nylon", "$2.0/kg"),
         PlasticWasteItem(R.drawable.acrylic, "Acrylic", "$1.3/kg")
     )
