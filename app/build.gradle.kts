@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.plastic_radar"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -65,6 +65,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.database)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -72,4 +74,21 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // system UI Controller
+    implementation(libs.accompanist.systemuicontroller)
+
+    // Extended Icons
+    implementation(libs.androidx.material.icons.extended)
+
+    implementation (libs.ui)
+    implementation (libs.androidx.material)
+    implementation (libs.ui.tooling.preview)
+    implementation (libs.androidx.lifecycle.runtime.ktx.v261)
+    implementation (libs.androidx.activity.compose.v172)
+
+    implementation (libs.androidx.navigation.compose)
+    implementation (libs.firebase.firestore.v2420)
+
+
 }
