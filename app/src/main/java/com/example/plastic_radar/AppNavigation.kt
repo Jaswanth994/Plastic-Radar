@@ -22,12 +22,13 @@ fun AppNavigation() {
 //        composable(Routes.AppContent) {
 //            AppContent(navController,Firebase.auth)
 //        }
-        composable(Routes.AuthOrMainScreen) {
-            AuthOrMainScreen(navController,Firebase.auth)
-        }
         composable(Routes.PostSignInSplash) {
             PostSignInSplashScreen(navController)
         }
+        composable(Routes.AuthOrMainScreen) {
+            AuthOrMainScreen(navController,Firebase.auth)
+        }
+
         composable(Routes.HomeScreen) {
             HomeScreen(navController)
         }

@@ -7,9 +7,9 @@ import kotlinx.coroutines.delay
 @Composable
 fun PostSignInSplashScreen(navController: NavHostController) {
     LaunchedEffect(Unit) {
-        delay(2000) // Delay for 2 seconds (or any duration you prefer)
+        delay(1000) // Delay for 2 seconds (or any duration you prefer)
         navController.navigate(Routes.HomeScreen) {
-            popUpTo(Routes.AuthOrMainScreen) { inclusive = true } // Clear previous screens from backstack
+            popUpTo(Routes.onboardingScreen) { inclusive = true } // Clear previous screens from backstack
         }
     }
     SplashScreenUI() // Call your splash screen UI

@@ -51,9 +51,9 @@ android {
 }
 //nnnn
 dependencies {
-    implementation (libs.androidx.ui.v140) // Replace with the latest stable version
-    implementation (libs.androidx.foundation) // Replace with the latest stable version
-    implementation (libs.material3)
+//    implementation (libs.androidx.ui.v140) // Replace with the latest stable version
+//    implementation (libs.androidx.foundation) // Replace with the latest stable version
+//    implementation (libs.material3)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -88,9 +88,10 @@ dependencies {
     implementation (libs.ui.tooling.preview)
     implementation (libs.androidx.lifecycle.runtime.ktx.v261)
     implementation (libs.androidx.activity.compose.v172)
-
     implementation (libs.androidx.navigation.compose)
-    implementation (libs.firebase.firestore.v2420)
+//    implementation (libs.androidx.navigation.compose)
+    implementation (libs.firebase.firestore.ktx)
+//    implementation (libs.firebase.firestore.v2420)
 
 
 }

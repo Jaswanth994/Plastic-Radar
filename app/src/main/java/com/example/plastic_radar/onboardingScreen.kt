@@ -82,7 +82,7 @@ fun OnboardingScreen(navController: NavController) {
                     currentPage++
                 } else {
                     // Navigate to home screen on the last page
-                    navController.navigate(Routes.AuthOrMainScreen)
+                    navController.navigate(Routes.PostSignInSplash)
                 }
             },
             modifier = Modifier
