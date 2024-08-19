@@ -59,6 +59,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.launch
@@ -521,26 +522,7 @@ fun SelectableChip(
 //@Preview(showBackground = true)
 //@Composable
 //fun AddressScreenPreview() {
-//    DisposeScreen(navContoller = NavHostController)
+//    AddressFormContent(paddingValues, onShowSnackbar = {})
 //}
 
-@Composable
-fun AddressListScreen() {
-    var addresses by remember { mutableStateOf<List<Address>>(emptyList()) }
-
-    LaunchedEffect(Unit) {
-        getAddresses(
-            onSuccess = { retrievedAddresses ->
-                addresses = retrievedAddresses
-            },
-            onError = { e -> /* Handle error, e.g., show an error message */ }
-        )
-    }
-
-    LazyColumn {
-        this.items(addresses) { address ->
-            Text(text = "Name: ${address.name}, City: ${address.city}")
-        }
-    }
-}
 
