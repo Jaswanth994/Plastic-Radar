@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
         val systemUiController = rememberSystemUiController()
         SideEffect {
             systemUiController.setSystemBarsColor(
-            color = color
+                color = color
             )
         }
     }
