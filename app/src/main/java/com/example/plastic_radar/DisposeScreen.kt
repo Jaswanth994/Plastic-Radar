@@ -57,10 +57,13 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.zIndex
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
@@ -74,17 +77,7 @@ data class Address(
     val scheduleDate: String = "",
 )
 
-fun saveAddress(address: Address, onSuccess: () -> Unit, onError: (Exception) -> Unit) {
-    val db = FirebaseFirestore.getInstance()
-    db.collection("addresses")
-        .add(address)
-        .addOnSuccessListener {
-            onSuccess()
-        }
-        .addOnFailureListener { e ->
-            onError(e)
-        }
-}
+
 
 fun getAddresses(onSuccess: (List<Address>) -> Unit, onError: (Exception) -> Unit) {
     val db = FirebaseFirestore.getInstance()
@@ -115,7 +108,7 @@ fun DisposeScreen(navContoller: NavHostController) {
                     IconButton(onClick = { navContoller.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
-                }
+                },
             )
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
@@ -544,3 +537,9 @@ fun AddressListScreen() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun DisposeScreenPreview() {
+    val navController = rememberNavController() // Create a mock NavController
+    DisposeScreen(navContoller = navController)
+}
