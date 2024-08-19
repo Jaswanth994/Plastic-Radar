@@ -11,35 +11,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun DashboardItem(icon: ImageVector, label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    Row(
+fun DashboardItem(
+    icon: ImageVector,
+    label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .padding(horizontal = 16.dp)
-            .background(Color(0xFF81C784), shape = MaterialTheme.shapes.medium) // Softer green background with rounded corners
-            .clickable { onClick() }
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .clickable(onClick = onClick)
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = label,
-            tint = Color.White,
-            modifier = Modifier.size(24.dp)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = label,
-            color = Color.White,
-            fontSize = 18.sp
-        )
+        Icon(imageVector = icon, contentDescription = label, tint = Color.White)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = label, color = Color.White, textAlign = TextAlign.Center)
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

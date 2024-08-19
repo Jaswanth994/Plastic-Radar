@@ -1,6 +1,7 @@
 package com.example.plastic_radar.Profile
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -17,28 +18,36 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ProfileCard(name: String, phoneNumber: String) {
-    Row(
+    Column(
         modifier = Modifier
+            .padding(horizontal = 16.dp)
             .fillMaxWidth()
-            .background(Color(0xFFE0FFE0), shape = RoundedCornerShape(8.dp))
+            .background(Color.White, RoundedCornerShape(8.dp))
             .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
             imageVector = Icons.Default.AccountCircle,
-            contentDescription = "Profile Picture",
-            tint = Color(0xFF008000),
-            modifier = Modifier.size(48.dp)
+            contentDescription = "Profile Icon",
+            tint = Color(0xFF388E3C),
+            modifier = Modifier.size(64.dp)
         )
-        Spacer(modifier = Modifier.width(16.dp))
-        Column {
-            Text(text = name, fontSize = 20.sp, color = Color.Black)
-            Text(text = phoneNumber, fontSize = 16.sp, color = Color.Gray)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "View QR Code", fontSize = 14.sp, color = Color.Gray)
-        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = name, fontSize = 20.sp, color = Color.Black)
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(text = phoneNumber, fontSize = 16.sp, color = Color.Gray)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "View QR Code",
+            color = Color(0xFF388E3C),
+            fontSize = 16.sp,
+            modifier = Modifier.clickable {
+                // Handle QR Code viewing logic here
+            }
+        )
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
