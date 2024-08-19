@@ -9,4 +9,5 @@ object Routes {
     var ChangeCountryScreen = "change_country"
     var onboardingScreen = "onboarding_screen"
     var ScrapOrderHistoryScreen = "scrap_order_history_screen"
+    var ComingSoonScreen = "coming_soon_screen"
 }

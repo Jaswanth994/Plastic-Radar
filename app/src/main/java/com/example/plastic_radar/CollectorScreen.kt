@@ -18,8 +18,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.plastic_radar.firebase.Order
-import com.example.plastic_radar.firebase.OrderRepository
+import com.example.plastic_radar.firbase.Order
+import com.example.plastic_radar.firbase.OrderRepository
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -137,6 +137,7 @@ fun OrderCard(order: Order) {
             Text("Phone: ${order.phoneNumber}", fontSize = 16.sp, color = Color.White)
             Text("Address: ${order.addressName}", fontSize = 16.sp, color = Color.White)
             Text("City: ${order.city}", fontSize = 16.sp, color = Color.White)
+            Text("Pick-Up-Date: ${order.scheduleDate}", fontSize = 16.sp, color = Color.White)
             Text("Options: ${order.selectedOptions.joinToString()}", fontSize = 16.sp, color = Color.White)
             Text("Quantity: ${order.quantity.joinToString()}", fontSize = 16.sp, color = Color.White)
         }

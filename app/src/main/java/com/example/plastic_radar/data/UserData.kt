@@ -18,4 +18,5 @@ data class order(
     val typeofplastic : String,
     val quantity : Int,
     val price : Int,
+    val scheduleDate : String,
 )

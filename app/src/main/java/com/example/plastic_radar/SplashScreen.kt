@@ -1,5 +1,7 @@
 package com.example.plastic_radar
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +29,9 @@ import kotlinx.coroutines.delay
 fun SplashScreen(navController: NavController) {
     var showText by remember { mutableStateOf(false) }
     var logoAnimationComplete by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    val isOnboardingShown = sharedPreferences.getBoolean("onboarding_shown", false)
 
     // Rotation and scaling animation
     val rotationAndScaleAnimation = rememberInfiniteTransition()
@@ -33,7 +39,7 @@ fun SplashScreen(navController: NavController) {
         initialValue = 0f,
         targetValue = 360f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 2000, easing = LinearEasing),
+            animation = tween(durationMillis = 3000, easing = LinearEasing), // Slower rotation
             repeatMode = RepeatMode.Restart
         )
     )
@@ -42,16 +48,16 @@ fun SplashScreen(navController: NavController) {
         initialValue = 0.5f,
         targetValue = 1.5f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 2000, easing = FastOutSlowInEasing),
+            animation = tween(durationMillis = 3000, easing = FastOutSlowInEasing), // Sync with rotation speed
             repeatMode = RepeatMode.Reverse
         )
     )
 
     LaunchedEffect(Unit) {
-        delay(2000) // Wait for the logo to complete one full rotation
+        delay(3000) // Wait for the logo to complete one full rotation
         logoAnimationComplete = true // Logo returns to its original position
         showText = true // Show text after logo attains straight position
-        delay(1000) // Display the text for 1 second
+        delay(1500) // Display the text for 1.5 seconds
         navController.navigate(Routes.onboardingScreen) {
             popUpTo(Routes.SplashScreen) { inclusive = true }
         }
@@ -60,7 +66,7 @@ fun SplashScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(Color(0xFF2F4F4F)), // Beige background color
         contentAlignment = Alignment.Center
     ) {
         if (!logoAnimationComplete) {
@@ -89,7 +95,7 @@ fun SplashScreen(navController: NavController) {
                 fontSize = 36.sp,
                 fontWeight = FontWeight.ExtraBold,
                 fontFamily = FontFamily.Serif,
-                color = Color.Black,
+                color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)

@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.plastic_radar.homescreen.HomeScreen
 import com.example.plastic_radar.Profile.ChangeCountryScreen
+import com.example.plastic_radar.Profile.ComingSoonScreen
 import com.example.plastic_radar.Profile.ProfileScreen
 import com.example.plastic_radar.Profile.ScrapOrderHistoryScreen
 import com.google.firebase.Firebase
@@ -63,6 +64,13 @@ fun AppNavigation() {
 
         composable("collector"){
             CollectorScreen()
+        }
+
+        composable(Routes.ComingSoonScreen){
+            ComingSoonScreen(onBackClick = {
+                // Handle the back navigation, e.g., using NavController
+                navController.navigateUp()
+            })
         }
     }
 }

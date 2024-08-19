@@ -1,7 +1,6 @@
 package com.example.plastic_radar.firbase
 
 import android.util.Log
-import com.example.plastic_radar.firebase.Order
 import com.google.firebase.firestore.FirebaseFirestore
 
 fun saveOrderToFirestore(userId: String, order: Order, firestore: FirebaseFirestore) {

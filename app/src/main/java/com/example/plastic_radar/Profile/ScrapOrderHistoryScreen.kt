@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.plastic_radar.firebase.Order
-import com.example.plastic_radar.firebase.OrderRepository
+import com.example.plastic_radar.firbase.Order
+import com.example.plastic_radar.firbase.OrderRepository
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,6 +101,7 @@ fun OrderCard(order: Order) {
             Text(text = "Name: ${order.name}", fontWeight = FontWeight.Bold)
             Text(text = "Phone: ${order.phoneNumber}")
             Text(text = "Address: ${order.addressName}, ${order.city}")
+            Text(text = "Pick-Up-Date: ${order.scheduleDate}")
             Text(text = "Type: ${order.selectedOptions.joinToString(", ")}")
             Text(text = "Quantity: ${order.quantity.joinToString(", ")}")
         }

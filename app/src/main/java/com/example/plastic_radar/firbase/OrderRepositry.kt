@@ -1,4 +1,4 @@
- package com.example.plastic_radar.firebase
+ package com.example.plastic_radar.firbase
 
 import android.annotation.SuppressLint
 import com.google.firebase.auth.FirebaseAuth
@@ -11,6 +11,7 @@ data class Order(
     val phoneNumber: String = "",
     val addressName: String = "",
     val city: String = "",
+    val scheduleDate: String = "",
     val selectedOptions: List<String> = emptyList(),
     val quantity: List<String> = emptyList()
 )
