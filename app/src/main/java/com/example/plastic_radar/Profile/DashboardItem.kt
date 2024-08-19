@@ -16,31 +16,29 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 
+
 @Composable
-fun DashboardItem(icon: ImageVector, label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun DashboardItem(
+    icon: ImageVector,
+    label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
-            .padding(horizontal = 16.dp)
-            .background(Color(0xFF81C784), shape = MaterialTheme.shapes.medium) // Softer green background with rounded corners
-            .clickable { onClick() }
-            .padding(16.dp),
+            .clickable(onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = icon,
             contentDescription = label,
-            tint = Color.White,
-            modifier = Modifier.size(24.dp)
+            tint = Color.White // White icon for better contrast
         )
         Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = label,
-            color = Color.White,
-            fontSize = 18.sp
-        )
+        Text(text = label, style = androidx.compose.material3.MaterialTheme.typography.bodyMedium.copy(color = Color.White)) // White text for better contrast
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewProfileScreen() {

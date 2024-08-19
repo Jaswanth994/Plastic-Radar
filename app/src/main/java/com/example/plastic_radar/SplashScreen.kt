@@ -1,58 +1,53 @@
 package com.example.plastic_radar
 
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.compose.animation.core.TweenSpec
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.*
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController) {
-    val context = LocalContext.current
-    val sharedPreferences: SharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-    val isOnboardingShown = sharedPreferences.getBoolean("onboarding_shown", false)
+    // Animation state variables
+    var startAnimation by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (startAnimation) 1f else 0f,
+        animationSpec = tween(durationMillis = 1000),
+        label = ""
+    )
+
+    // Display the text after the logo animation
+    var showText by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        delay(2000) // Delay for splash screen duration
-        if (isOnboardingShown) {
-            // Navigate directly to the home screen if onboarding has already been shown
-            navController.navigate(Routes.HomeScreen) {
-                popUpTo(Routes.SplashScreen) { inclusive = true }
-            }
-        } else {
-            // Navigate to the onboarding screen if it's the first launch
-            navController.navigate(Routes.onboardingScreen) {
-                popUpTo(Routes.SplashScreen) { inclusive = true }
-            }
-            // Set onboarding as shown
-            with(sharedPreferences.edit()) {
-                putBoolean("onboarding_shown", true)
-                apply()
-            }
+        startAnimation = true
+        delay(1500) // Wait for the logo animation
+        showText = true
+        delay(2000) // Delay to display the text
+        navController.navigate(Routes.onboardingScreen) {
+            popUpTo(Routes.SplashScreen) { inclusive = true }
         }
     }
-
-    val scale by animateFloatAsState(
-        targetValue = 1f,
-        animationSpec = TweenSpec(durationMillis = 500), label = ""
-    )
 
     Box(
         modifier = Modifier
@@ -68,5 +63,16 @@ fun SplashScreen(navController: NavController) {
                 .clip(CircleShape)
                 .scale(scale)
         )
+        if (showText) {
+            Text(
+                text = "PLASTIC RADAR",
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 100.dp)
+            )
+        }
     }
 }

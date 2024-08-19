@@ -189,12 +189,7 @@ fun AddressFormContent(paddingValues: PaddingValues) {
             ),
             shape = RoundedCornerShape(16.dp)
         )
-//        Text(
-//            text = "Select the type of plastic",
-//            fontWeight = FontWeight.Bold,
-//            style = MaterialTheme.typography.titleLarge,
-//            modifier = Modifier.padding(bottom = 16.dp),
-//        )
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()

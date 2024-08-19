@@ -32,6 +32,19 @@ val Typography = Typography(
         fontSize = 11.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
+    ),
+    displayLarge = TextStyle(fontWeight = FontWeight.Bold,
+    fontSize = 24.sp,
+    lineHeight = 32.sp,
+    letterSpacing = 0.sp,
+    color = Color(0xFF388E3C) // Color for h5 headings
+    ),
+    bodyMedium = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp,
+        color = Color.Gray // Default color for body text
     )
 
 )

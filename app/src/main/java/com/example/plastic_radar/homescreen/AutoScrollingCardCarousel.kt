@@ -52,8 +52,8 @@ fun CardItem(imageResId: Int) {
     Card(
         elevation = 8.dp,
         modifier = Modifier
-            .padding(16.dp)
-            .size(300.dp, 200.dp) // Adjust the card size as needed
+            .padding(horizontal = 30.dp, vertical = 4.dp)
+            .size(325.dp, 200.dp) // Adjust the card size as needed
     ) {
         Image(
             painter = painterResource(id = imageResId),
