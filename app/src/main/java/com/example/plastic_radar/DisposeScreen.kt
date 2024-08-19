@@ -18,20 +18,14 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -48,23 +42,27 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import android.app.DatePickerDialog
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.zIndex
-import java.util.Calendar
-import androidx.compose.material.Snackbar
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.window.PopupProperties
+import androidx.compose.ui.zIndex
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 data class Address(
     val name: String = "",
@@ -150,249 +148,257 @@ fun AddressFormContent(paddingValues: PaddingValues, onShowSnackbar: (String) ->
     val context = LocalContext.current
 
     Image(
-            painter = painterResource(id = R.drawable.background2), // Replace with your background image resource
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .alpha(0.7f) // You can adjust the alpha value for transparency
-                .zIndex(-1f)
-        )
+        painter = painterResource(id = R.drawable.background2), // Replace with your background image resource
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .fillMaxSize()
+            .alpha(0.7f) // You can adjust the alpha value for transparency
+            .zIndex(-1f)
+    )
     val scrollState = rememberScrollState()
-        Column(
+    Column(
+        modifier = Modifier
+            .padding(paddingValues)
+            .padding(16.dp)
+            .fillMaxWidth()
+            //.verticalScroll(scrollState)
+            .background(Color.Transparent)
+    ) {
+        Box(
             modifier = Modifier
-                .padding(paddingValues)
-                .padding(16.dp)
                 .fillMaxWidth()
-                //.verticalScroll(scrollState)
-                .background(Color.Transparent)
+                .padding(bottom = 8.dp)
+                .background(colorResource(id = R.color.green)) // Set the background color to green
+                .clip(RoundedCornerShape(30.dp))
         ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp)
-                        .background(colorResource(id = R.color.green)) // Set the background color to green
-                        .clip(RoundedCornerShape(30.dp))
-                ) {
-                    Text(
-                        text = "Add Address",
-                        fontWeight = FontWeight.Bold,
-                        //style = MaterialTheme.typography.titleLarge,
-                        //color = Color.White, // Optional: Change text color to white for better contrast
-                        modifier = Modifier.padding(8.dp) // Add padding inside the box for the text
+            Text(
+                text = "Add Address",
+                fontWeight = FontWeight.Bold,
+                //style = MaterialTheme.typography.titleLarge,
+                //color = Color.White, // Optional: Change text color to white for better contrast
+                modifier = Modifier.padding(8.dp) // Add padding inside the box for the text
+            )
+        }
+
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            label = { Text(text = "Name", fontWeight = FontWeight.Bold) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = Color.Blue,
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Black,
+                unfocusedLabelColor = Color.Black,
+                containerColor = colorResource(id = R.color.cream)
+            ),
+            shape = RoundedCornerShape(16.dp)
+        )
+        OutlinedTextField(
+            value = phoneNumber,
+            onValueChange = { phoneNumber = it },
+            label = { Text(text = "Phone Number", fontWeight = FontWeight.Bold) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = Color.Blue,
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Black,
+                unfocusedLabelColor = Color.Black,
+                containerColor = colorResource(id = R.color.cream)
+            ),
+            shape = RoundedCornerShape(16.dp)
+        )
+        OutlinedTextField(
+            value = addressName,
+            onValueChange = { addressName = it },
+            label = {
+                Text(
+                    text = "Address Name (Home, Work)",
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = Color.Blue,
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Black,
+                unfocusedLabelColor = Color.Black,
+                containerColor = colorResource(id = R.color.cream)
+            ),
+            shape = RoundedCornerShape(16.dp)
+        )
+
+
+        Box(modifier = Modifier
+            //.fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clickable { expanded = true }
+        ) {
+            OutlinedTextField(
+                value = city,
+                onValueChange = { city = it },
+                label = { Text(text = "Select City", fontWeight = FontWeight.Bold) },
+                modifier = Modifier
+                    .fillMaxWidth(),
+                //.clickable { expanded = true },
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    focusedIndicatorColor = Color.Blue,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.Black,
+                    focusedLabelColor = Color.Black,
+                    unfocusedLabelColor = Color.Black,
+                    containerColor = colorResource(id = R.color.cream)
+                ),
+                shape = RoundedCornerShape(16.dp),
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowDropDown,  // Dropdown arrow icon
+                        contentDescription = "Drop down arrow",
+                        Modifier.clickable { expanded = !expanded }  // Toggle dropdown on click
                     )
-                }
+                },
+                readOnly = true
+            )
 
-                OutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it },
-                    label = { Text(text = "Name", fontWeight = FontWeight.Bold) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedTextColor = Color.Black,
-                        unfocusedTextColor = Color.Black,
-                        focusedIndicatorColor = Color.Blue,
-                        unfocusedIndicatorColor = Color.Gray,
-                        cursorColor = Color.Black,
-                        focusedLabelColor = Color.Black,
-                        unfocusedLabelColor = Color.Black,
-                        containerColor = colorResource(id = R.color.cream)
-                    ),
-                    shape = RoundedCornerShape(16.dp)
-                )
-                OutlinedTextField(
-                    value = phoneNumber,
-                    onValueChange = { phoneNumber = it },
-                    label = { Text(text = "Phone Number", fontWeight = FontWeight.Bold) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedTextColor = Color.Black,
-                        unfocusedTextColor = Color.Black,
-                        focusedIndicatorColor = Color.Blue,
-                        unfocusedIndicatorColor = Color.Gray,
-                        cursorColor = Color.Black,
-                        focusedLabelColor = Color.Black,
-                        unfocusedLabelColor = Color.Black,
-                        containerColor = colorResource(id = R.color.cream)
-                    ),
-                    shape = RoundedCornerShape(16.dp)
-                )
-                OutlinedTextField(
-                    value = addressName,
-                    onValueChange = { addressName = it },
-                    label = {
-                        Text(
-                            text = "Address Name (Home, Work)",
-                            fontWeight = FontWeight.Bold
-                        )
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedTextColor = Color.Black,
-                        unfocusedTextColor = Color.Black,
-                        focusedIndicatorColor = Color.Blue,
-                        unfocusedIndicatorColor = Color.Gray,
-                        cursorColor = Color.Black,
-                        focusedLabelColor = Color.Black,
-                        unfocusedLabelColor = Color.Black,
-                        containerColor = colorResource(id = R.color.cream)
-                    ),
-                    shape = RoundedCornerShape(16.dp)
-                )
-
-
-            Box(modifier = Modifier
-                //.fillMaxWidth()
-                .padding(bottom = 16.dp)
-                .clickable { expanded = true }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                properties = PopupProperties(focusable = true),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                OutlinedTextField(
-                    value = city,
-                    onValueChange = { city = it },
-                    label = { Text(text = "Select City", fontWeight = FontWeight.Bold) },
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                        //.clickable { expanded = true },
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedTextColor = Color.Black,
-                        unfocusedTextColor = Color.Black,
-                        focusedIndicatorColor = Color.Blue,
-                        unfocusedIndicatorColor = Color.Gray,
-                        cursorColor = Color.Black,
-                        focusedLabelColor = Color.Black,
-                        unfocusedLabelColor = Color.Black,
-                        containerColor = colorResource(id = R.color.cream)
-                    ),
-                    shape = RoundedCornerShape(16.dp),
-                    readOnly = true
-                )
-
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    cityOptions.forEach { option ->
-                        DropdownMenuItem(
-                            onClick = {
-                                city = option
-                                expanded = false
-                            }
-                        ) {
-                            Text(text = option, color = Color.Black)
+                cityOptions.forEach { option ->
+                    DropdownMenuItem(
+                        onClick = {
+                            city = option
+                            expanded = false
                         }
+                    ) {
+                        Text(text = option, color = Color.Black)
                     }
                 }
             }
+        }
 
 
-            ScheduleDatePicker(context, scheduleDate) { selectedDate ->
-                    scheduleDate = selectedDate
-                }
+        ScheduleDatePicker(context, scheduleDate) { selectedDate ->
+            scheduleDate = selectedDate
+        }
 //        Text(
 //            text = "Select the type of plastic",
 //            fontWeight = FontWeight.Bold,
 //            style = MaterialTheme.typography.titleLarge,
 //            modifier = Modifier.padding(bottom = 16.dp),
 //        )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                        .background(
-                            colorResource(id = R.color.green)
-                        ),
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+                .background(
+                    colorResource(id = R.color.green)
+                ),
 
-                    )
+            )
 
-                {
-                    Text(
-                        text = "Select Type of Plastic",
-                        fontWeight = FontWeight.Bold,
-                        //style = MaterialTheme.typography.titleLarge,
-                        //color = Color.White, // Optional: Change text color to white for better contrast
-                        modifier = Modifier.padding(8.dp) // Add padding inside the box for the text
-                    )
-                }
+        {
+            Text(
+                text = "Select Type of Plastic",
+                fontWeight = FontWeight.Bold,
+                //style = MaterialTheme.typography.titleLarge,
+                //color = Color.White, // Optional: Change text color to white for better contrast
+                modifier = Modifier.padding(8.dp) // Add padding inside the box for the text
+            )
+        }
 
 
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier.fillMaxWidth(0.8f), // Adjust width to center
-                        contentPadding = PaddingValues(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        items(availableOptions.size) { index ->
-                            val option = availableOptions[index]
-                            SelectableChip(
-                                label = option,
-                                isSelected = selectedOptions.contains(option),
-                                onClick = {
-                                    selectedOptions = if (selectedOptions.contains(option)) {
-                                        selectedOptions - option
-                                    } else {
-                                        selectedOptions + option
-                                    }
-                                }
-                            )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier.fillMaxWidth(0.8f), // Adjust width to center
+                contentPadding = PaddingValues(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(availableOptions.size) { index ->
+                    val option = availableOptions[index]
+                    SelectableChip(
+                        label = option,
+                        isSelected = selectedOptions.contains(option),
+                        onClick = {
+                            selectedOptions = if (selectedOptions.contains(option)) {
+                                selectedOptions - option
+                            } else {
+                                selectedOptions + option
+                            }
                         }
-                    }
-                }
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp)
-                        .background(colorResource(id = R.color.green)),
-
-                    ) {
-                    Text(
-                        text = "Select Quantity of Plastic",
-                        fontWeight = FontWeight.Bold,
-                        //style = MaterialTheme.typography.titleLarge,
-                        //color = Color.White, // Optional: Change text color to white for better contrast
-                        modifier = Modifier.padding(8.dp) // Add padding inside the box for the text
                     )
                 }
+            }
+        }
 
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier.fillMaxWidth(0.8f), // Adjust width to center
-                        contentPadding = PaddingValues(8.dp),
-                        horizontalArrangement = Arrangement.Center, //Arrangement.spacedBy(10.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        items(quantity.size) { index ->
-                            val option = quantity[index]
-                            SelectableChip(
-                                label = option,
-                                isSelected = selectedOptions.contains(option),
-                                onClick = {
-                                    selectedOptions = if (selectedOptions.contains(option)) {
-                                        selectedOptions - option
-                                    } else {
-                                        selectedOptions + option
-                                    }
-                                }
-                            )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
+                .background(colorResource(id = R.color.green)),
+
+            ) {
+            Text(
+                text = "Select Quantity of Plastic",
+                fontWeight = FontWeight.Bold,
+                //style = MaterialTheme.typography.titleLarge,
+                //color = Color.White, // Optional: Change text color to white for better contrast
+                modifier = Modifier.padding(8.dp) // Add padding inside the box for the text
+            )
+        }
+
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier.fillMaxWidth(0.8f), // Adjust width to center
+                contentPadding = PaddingValues(8.dp),
+                horizontalArrangement = Arrangement.Center, //Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                items(quantity.size) { index ->
+                    val option = quantity[index]
+                    SelectableChip(
+                        label = option,
+                        isSelected = selectedOptions.contains(option),
+                        onClick = {
+                            selectedOptions = if (selectedOptions.contains(option)) {
+                                selectedOptions - option
+                            } else {
+                                selectedOptions + option
+                            }
                         }
-                    }
+                    )
                 }
+            }
+        }
 
 //        Button(
 //            onClick = { /* Handle save address */ },
@@ -407,39 +413,46 @@ fun AddressFormContent(paddingValues: PaddingValues, onShowSnackbar: (String) ->
 //        ) {
 //            Text(text = "SAVE ADDRESS", fontWeight = FontWeight.Bold, color = Color.White)
 //        }
-                Button(
-                    onClick = {
-                        val address = Address(
-                            name = name,
-                            phoneNumber = phoneNumber,
-                            addressName = addressName,
-                            city = city,
-                            selectedPlastics = selectedOptions.toList(),
-                            quantity = selectedOptions.toList(),
-                            scheduleDate = scheduleDate
-                        )
-                        saveAddress(address,
-                            onSuccess = { "Your Address Saved"/* Handle success, e.g., show a message */ },
-                            onError = { e -> "Try Again"/* Handle error, e.g., show an error message */ }
-                        )
-                        onShowSnackbar("Address Sucessfully Added!")
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .padding(8.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(id = R.color.green),
-                        contentColor = Color.Black
-                    )
-                ) {
-                    Text(text = "SAVE ADDRESS", fontWeight = FontWeight.Bold, color = Color.White)
+//        Button(
+//            onClick = {
+//                val address = Address(
+//                    name = name,
+//                    phoneNumber = phoneNumber,
+//                    addressName = addressName,
+//                    city = city,
+//                    selectedPlastics = selectedOptions.toList(),
+//                    quantity = selectedOptions.toList(),
+//                    scheduleDate = scheduleDate
+//                )
+//                saveAddress(address,
+//                    onSuccess = { saveAddress(name, phoneNumber, addressName, city, scheduleDate, selectedOptions)},
+//                    onError = { e -> "Try Again"/* Handle error, e.g., show an error message */ }
+//                )
+//                onShowSnackbar("Address Sucessfully Added!")
+//            },
+        Button(
+            onClick = {
+                if (name.isEmpty() || phoneNumber.isEmpty() || addressName.isEmpty() || city.isEmpty() || scheduleDate.isEmpty() || selectedOptions.isEmpty()) {
+                    onShowSnackbar("Please fill all required fields.")
                 }
-
-            }
+                else {
+                    onShowSnackbar("Address Sucessfully Added!")
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(8.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(id = R.color.green),
+                contentColor = Color.Black
+            )
+        ) {
+            Text(text = "SAVE ADDRESS", fontWeight = FontWeight.Bold, color = Color.White)
         }
 
-
+    }
+}
 
 @Composable
 fun ScheduleDatePicker(@SuppressLint("RestrictedApi") context: android.content.Context, selectedDate: String, onDateSelected: (String) -> Unit) {
@@ -508,7 +521,7 @@ fun SelectableChip(
 //@Preview(showBackground = true)
 //@Composable
 //fun AddressScreenPreview() {
-//    AddressFormContent(PaddingValues(0.dp))
+//    DisposeScreen(navContoller = NavHostController)
 //}
 
 @Composable

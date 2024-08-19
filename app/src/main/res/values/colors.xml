@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name = "cream">#FFFDD0</color>
     <color name = "green">#06402B</color>
+    <color name = "lightgreen">#66BB6A</color>
+    <color name = "darkgray">#1E1E1E</color>
+    <color name = "lightblue">#81D4FA</color>
+    <color name = "yellow">#FFD54F</color>
+
 </resources>
