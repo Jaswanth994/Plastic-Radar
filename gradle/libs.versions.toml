@@ -1,7 +1,9 @@
 [versions]
+accompanistPermissions = "0.24.13-rc"
 accompanistSystemuicontroller = "0.27.0"
 activityComposeVersion = "1.7.2"
 agp = "8.5.1"
+coilCompose = "2.1.0"
 firebaseBom = "33.1.2"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
@@ -22,8 +24,10 @@ navigationCompose = "2.7.7"
 ui = "1.6.8"
 uiToolingPreview = "1.6.8"
 constraintlayout = "2.1.4"
+firebaseStorageKtx = "21.0.0"
 
 [libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-activity-compose-v172 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,6 +35,7 @@ androidx-lifecycle-runtime-ktx-v261 = { module = "androidx.lifecycle:lifecycle-r
 androidx-material = { module = "androidx.compose.material:material", version.ref = "materialIconsExtended" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -53,6 +58,7 @@ androidx-compose-material3 = { group = "androidx.wear.compose", name = "compose-
 ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

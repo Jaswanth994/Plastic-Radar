@@ -39,6 +39,9 @@ import kotlinx.coroutines.launch
 //import com.example.plastic_radar.ui.theme.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.plastic_radar.Routes
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 val items: List<BottomNavigation> = listOf(
     BottomNavigation(
@@ -90,7 +93,9 @@ fun BottomNavigationBar(navController: NavController) {
                 NavigationBarItem(
                     selected = item.route == navController.currentDestination?.route,
                     onClick = {
-                        if (item.route != navController.currentDestination?.route) {
+                        if (item.route == "collector") {
+                            checkCollectorRegistration(navController)
+                        } else if (item.route != navController.currentDestination?.route) {
                             navController.navigate(item.route) {
                                 popUpTo(navController.graph.startDestinationId) {
                                     inclusive = false
@@ -119,5 +124,28 @@ fun BottomNavigationBar(navController: NavController) {
                 )
             }
         }
+    }
+}
+
+fun checkCollectorRegistration(navController: NavController) {
+    val db = FirebaseFirestore.getInstance()
+    val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+
+    currentUserUid?.let { uid ->
+        db.collection("collectors").document(uid).get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    // User is already registered, navigate to CollectorScreen
+                    navController.navigate("collector")
+                } else {
+                    // User is not registered, navigate to CollectorDetailsScreen
+                    navController.navigate(Routes.CollectorDetailsScreen)
+                }
+            }
+            .addOnFailureListener { e ->
+                println("Error fetching document: $e")
+                // Handle error or fallback to CollectorDetailsScreen
+                navController.navigate(Routes.CollectorDetailsScreen)
+            }
     }
 }

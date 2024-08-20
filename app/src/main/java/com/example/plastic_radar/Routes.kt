@@ -10,4 +10,7 @@ object Routes {
     var onboardingScreen = "onboarding_screen"
     var ScrapOrderHistoryScreen = "scrap_order_history_screen"
     var ComingSoonScreen = "coming_soon_screen"
+    var CollectorDetailsScreen = "collector_details_screen"
+    var EditProfileScreen = "edit_profile_screen"
+    var EditProfileImageScreen = "edit_profile_image_screen"
 }

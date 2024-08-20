@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.storage.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -88,5 +89,7 @@ dependencies {
     implementation (libs.androidx.activity.compose.v172)
 
     implementation (libs.androidx.navigation.compose)
+    implementation (libs.coil.compose)
+    implementation (libs.accompanist.permissions)
 
 }

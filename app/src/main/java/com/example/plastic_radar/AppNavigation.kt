@@ -7,8 +7,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.plastic_radar.homescreen.HomeScreen
 import com.example.plastic_radar.Profile.ChangeCountryScreen
 import com.example.plastic_radar.Profile.ComingSoonScreen
+import com.example.plastic_radar.Profile.EditProfileImageScreen
+import com.example.plastic_radar.Profile.EditProfileScreen
 import com.example.plastic_radar.Profile.ProfileScreen
 import com.example.plastic_radar.Profile.ScrapOrderHistoryScreen
+import com.example.plastic_radar.collectorscreen.CollectorDetailsScreen
+import com.example.plastic_radar.collectorscreen.CollectorScreen
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -71,6 +75,18 @@ fun AppNavigation() {
                 // Handle the back navigation, e.g., using NavController
                 navController.navigateUp()
             })
+        }
+
+        composable(Routes.CollectorDetailsScreen){
+            CollectorDetailsScreen(navController)
+        }
+
+        composable(Routes.EditProfileScreen){
+            EditProfileScreen(navController)
+        }
+
+        composable(Routes.EditProfileImageScreen){
+            EditProfileImageScreen(navController)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.plastic_radar
+package com.example.plastic_radar.collectorscreen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -57,7 +57,7 @@ fun CollectorScreen() {
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text("Collector Screen") },
+                title = { Text("Welcome Collector !!") },
                 backgroundColor = Color(0xFF6200EE),
                 contentColor = Color.White
             )

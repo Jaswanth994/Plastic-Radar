@@ -1,5 +1,6 @@
 package com.example.plastic_radar.Profile
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -27,6 +28,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import com.example.plastic_radar.Routes
 import com.example.plastic_radar.homescreen.BottomNavigationBar
 import com.google.firebase.auth.FirebaseAuth
@@ -39,9 +42,11 @@ fun ProfileScreen(navController: NavController) {
     val db = FirebaseFirestore.getInstance()
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf(currentUser?.email ?: "") } // Fetch email from FirebaseAuth
+    var email by remember { mutableStateOf(currentUser?.email ?: "") }
+    var role by remember { mutableStateOf("") } // To store the user role (e.g., collector)
+    var profileImageUrl by remember { mutableStateOf("") }
 
-    // Fetch user's first and last name from Firestore
+    // Fetch user's profile data from Firestore
     LaunchedEffect(Unit) {
         currentUser?.uid?.let { userId ->
             db.collection("users").document(userId)
@@ -50,9 +55,12 @@ fun ProfileScreen(navController: NavController) {
                     if (document != null && document.exists()) {
                         firstName = document.getString("firstName") ?: ""
                         lastName = document.getString("lastName") ?: ""
+                        role = document.getString("role") ?: ""
+                        profileImageUrl = document.getString("profileImageUrl") ?: ""
                     }
                 }
                 .addOnFailureListener { exception ->
+                    firstName = "User12"
                     // Handle any errors here
                 }
         }
@@ -79,7 +87,7 @@ fun ProfileScreen(navController: NavController) {
                     }
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = Color(0xFF1976D2) // Dark blue for the top bar background
+                    containerColor = Color(0xFF1976D2)
                 )
             )
         },
@@ -88,27 +96,40 @@ fun ProfileScreen(navController: NavController) {
         LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
-                .background(Color(0xFF191970)) // Light blue background
+                .background(Color(0xFF191970))
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Profile Image and Name
             item {
+                // Profile Image
                 Box(
                     modifier = Modifier
                         .size(120.dp)
                         .clip(CircleShape)
                         .background(Color.Gray)
+                        .clickable {
+                            // Navigate to the EditProfileImageScreen for uploading a new profile image
+                            navController.navigate(Routes.EditProfileImageScreen)
+                        }
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = "Profile Image",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(20.dp),
-                        tint = Color.White
-                    )
+                    if (profileImageUrl.isNotEmpty()) {
+                        // Load and display the profile image from the URL
+                        Image(
+                            painter = rememberAsyncImagePainter(profileImageUrl),
+                            contentDescription = "Profile Image",
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Default.Person,
+                            contentDescription = "Profile Image",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(20.dp),
+                            tint = Color.White
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 // Display user's first name and last name
@@ -124,6 +145,22 @@ fun ProfileScreen(navController: NavController) {
                     fontSize = 16.sp,
                     color = Color.Gray
                 )
+                // Display role if the user is a collector
+                if (role == "collector") {
+                    Text(
+                        text = "You are a Collector",
+                        fontSize = 16.sp,
+                        color = Color.Green
+                    )
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                // Button to edit profile
+                Button(onClick = {
+                    // Navigate to the EditProfileScreen
+                    navController.navigate(Routes.EditProfileScreen)
+                }) {
+                    Text("Edit Profile")
+                }
                 Spacer(modifier = Modifier.height(16.dp))
             }
             // Menu Items (2 items per row)
@@ -169,7 +206,7 @@ fun ProfileScreen(navController: NavController) {
                                     modifier = Modifier
                                         .weight(1f)
                                         .padding(4.dp)
-                                        .background(Color(0xFF64B5F6), RoundedCornerShape(12.dp)) // Blue background
+                                        .background(Color(0xFF64B5F6), RoundedCornerShape(12.dp))
                                         .padding(vertical = 18.dp)
                                 )
                             }
@@ -180,8 +217,6 @@ fun ProfileScreen(navController: NavController) {
         }
     }
 }
-
-
 
 fun logoutUser(onLogoutSuccess: () -> Unit) {
     FirebaseAuth.getInstance().signOut()

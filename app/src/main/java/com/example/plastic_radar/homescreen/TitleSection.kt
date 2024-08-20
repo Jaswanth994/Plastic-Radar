@@ -35,43 +35,42 @@ import com.example.plastic_radar.Routes
 import com.example.plastic_radar.firbase.getStateFromFirebase
 import com.example.plastic_radar.firbase.saveStateToFirebase
 import com.example.plastic_radar.ui.theme.Teal
-
 @Composable
-fun TitleSection(navController: NavController){
+fun TitleSection(navController: NavController) {
     var location by remember { mutableStateOf("Location") }
+
+    // Trigger state retrieval from Firebase
     LaunchedEffect(Unit) {
         getStateFromFirebase { retrievedState ->
             location = retrievedState
         }
     }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
-    ){
-        Column{
+    ) {
+        Column {
             Text(
-                text="Plastic Radar",
-                fontSize =24.sp,
+                text = "Plastic Radar",
+                fontSize = 24.sp,
                 color = Teal,
-                fontWeight = FontWeight.Bold,
-//                style = MaterialTheme.typography.titleLarge
+                fontWeight = FontWeight.Bold
             )
         }
         Box(
             modifier = Modifier
                 .padding(10.dp)
-                .pointerHoverIcon(PointerIcon.Hand)
-                .background(Teal,
-                    shape = RoundedCornerShape(26.dp))
+                .background(Teal, shape = RoundedCornerShape(26.dp))
         ) {
             Row(
                 modifier = Modifier
-                    .clickable{
+                    .clickable {
                         navController.navigate(Routes.StateSelectionScreen) {
-                            popUpTo(Routes.HomeScreen){ inclusive = false; }
+                            popUpTo(Routes.HomeScreen) { inclusive = false }
                         }
                     }
                     .padding(10.dp),
@@ -93,7 +92,5 @@ fun TitleSection(navController: NavController){
                 )
             }
         }
-
-
     }
 }
