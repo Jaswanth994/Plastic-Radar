@@ -1,5 +1,7 @@
 package com.example.plastic_radar
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -39,6 +42,8 @@ import androidx.navigation.NavController
 
 @Composable
 fun OnboardingScreen(navController: NavController) {
+    val context = LocalContext.current
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
     val onboardingPages = listOf(
         OnboardingPage(
             title = "Welcome to Plastic Radar!",
@@ -71,7 +76,6 @@ fun OnboardingScreen(navController: NavController) {
                 if (index == currentPage) {
                     OnboardingPageItem(page)
                     Spacer(modifier = Modifier.height(8.dp))
-//                    ActiveDot()
                 }
             }
         }
@@ -81,8 +85,11 @@ fun OnboardingScreen(navController: NavController) {
                 if (currentPage < onboardingPages.size - 1) {
                     currentPage++
                 } else {
-                    // Navigate to home screen on the last page
-                    navController.navigate(Routes.AuthOrMainScreen)
+                    // Mark onboarding as shown and navigate to home screen
+                    sharedPreferences.edit().putBoolean("onboarding_shown", true).apply()
+                    navController.navigate(Routes.AuthOrMainScreen) {
+                        popUpTo(Routes.onboardingScreen) { inclusive = true }
+                    }
                 }
             },
             modifier = Modifier
@@ -137,13 +144,4 @@ fun OnboardingPageItem(page: OnboardingPage) {
             textAlign = TextAlign.Center
         )
     }
-}
-
-@Composable
-fun ActiveDot() {
-    Box(
-        modifier = Modifier
-            .size(12.dp)
-            .background(Color.Black, shape = CircleShape)
-    )
 }

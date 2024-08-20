@@ -27,15 +27,15 @@ import com.example.plastic_radar.R
 fun PlasticTypes() {
     // Sample Data (Replace with your actual data)
     val plasticWastes = listOf(
-        PlasticWasteItem(R.drawable.pet, "PET", "$1.2/kg"),
-        PlasticWasteItem(R.drawable.softplastic, "Soft Plastics", "$0.8/kg"),
-        PlasticWasteItem(R.drawable.pvc,"PVC", "$1.0/kg"),
-        PlasticWasteItem(R.drawable.watertank, "Water Tank", "$0.7/kg"),
-        PlasticWasteItem(R.drawable.hardplastic, "Hard Plastic", "$1.1/kg"),
-     PlasticWasteItem(R.drawable.ps, "PS", "$0.9/kg"),
-        PlasticWasteItem(R.drawable.abs, "ABS", "$1.5/kg"),
-        PlasticWasteItem(R.drawable.nylon, "Nylon", "$2.0/kg"),
-        PlasticWasteItem(R.drawable.acrylic, "Acrylic", "$1.3/kg")
+        PlasticWasteItem(R.drawable.pet, "PET", "Rs.10/kg"),
+        PlasticWasteItem(R.drawable.softplastic, "Soft Plastics", "Rs.8/kg"),
+        PlasticWasteItem(R.drawable.pvc,"PVC", "Rs.15/kg"),
+        PlasticWasteItem(R.drawable.watertank, "Water Tank", "Rs.20/kg"),
+        PlasticWasteItem(R.drawable.hardplastic, "Hard Plastic", "Rs.25/kg"),
+     PlasticWasteItem(R.drawable.ps, "PS", "Rs.13/kg"),
+        PlasticWasteItem(R.drawable.abs, "ABS", "Rs.15/kg"),
+        PlasticWasteItem(R.drawable.nylon, "Nylon", "Rs.10/kg"),
+        PlasticWasteItem(R.drawable.acrylic, "Acrylic", "Rs.20/kg")
     )
 
     LazyVerticalGrid(

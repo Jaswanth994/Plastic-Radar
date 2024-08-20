@@ -1,41 +1,56 @@
 package com.example.plastic_radar.Profile
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Chat
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Policy
+import androidx.compose.material.icons.filled.Public
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.automirrored.filled.Chat
-import androidx.compose.material.icons.automirrored.filled.ExitToApp
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
+import com.example.plastic_radar.Profile.DashboardItem
 import com.example.plastic_radar.Routes
+import com.example.plastic_radar.firbase.Order
+import com.example.plastic_radar.firbase.OrderRepository
 import com.example.plastic_radar.homescreen.BottomNavigationBar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(navController: NavController) {
     val currentUser = FirebaseAuth.getInstance().currentUser
@@ -69,37 +84,31 @@ fun ProfileScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    Text(
-                        "Profile",
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
+                title = { Text("Profile",) },
+//                backgroundColor = Color(0xFF2A8D8D),
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back to Home",
-                            tint = Color.Blue
+                            tint = Color.White
                         )
                     }
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = Color(0xFF1976D2)
+                backgroundColor = Color(0xFF2A8D8D),  // Updated to match the theme color
+                contentColor = Color.White
                 )
-            )
+
         },
         bottomBar = { BottomNavigationBar(navController) }
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
-                .background(Color(0xFF191970))
+                .background(Color(0xFFFAFAFA)) // Light background to match home page
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
             item {
                 // Profile Image
@@ -107,7 +116,7 @@ fun ProfileScreen(navController: NavController) {
                     modifier = Modifier
                         .size(120.dp)
                         .clip(CircleShape)
-                        .background(Color.Gray)
+                        .background(Color.LightGray)
                         .clickable {
                             // Navigate to the EditProfileImageScreen for uploading a new profile image
                             navController.navigate(Routes.EditProfileImageScreen)
@@ -155,21 +164,25 @@ fun ProfileScreen(navController: NavController) {
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 // Button to edit profile
-                Button(onClick = {
-                    // Navigate to the EditProfileScreen
-                    navController.navigate(Routes.EditProfileScreen)
-                }) {
-                    Text("Edit Profile")
+                Button(
+                    onClick = {
+                        // Navigate to the EditProfileScreen
+                        navController.navigate(Routes.EditProfileScreen)
+                    },
+                    colors = ButtonDefaults.buttonColors( Color(0xFF2A8D8D))
+                ) {
+                    Text("Edit Profile", color = Color.White)
                 }
                 Spacer(modifier = Modifier.height(16.dp))
             }
             // Menu Items (2 items per row)
             item {
                 val items = listOf(
-                    Triple(Icons.Default.Public, "Change Country", Routes.ChangeCountryScreen),
-                    Triple(Icons.Default.Description, "Scrap Order History", Routes.ScrapOrderHistoryScreen),
-                    Triple(Icons.Default.Policy, "Policies", Routes.ComingSoonScreen),
-                    Triple(Icons.Default.Info, "About Us", Routes.ComingSoonScreen),
+
+                    Triple(Icons.Default.Description, "Order History", Routes.ScrapOrderHistoryScreen),
+                    Triple(Icons.Default.Info, "About Us", Routes.AboutUsScreen),
+                    Triple(Icons.Default.Policy, "Policies", Routes.PoliciesScreen),
+                    Triple(Icons.Default.Public, "Country", Routes.ComingSoonScreen),
                     Triple(Icons.Default.Star, "Rate Us", Routes.ComingSoonScreen),
                     Triple(Icons.Default.Call, "Call Us", Routes.ComingSoonScreen),
                     Triple(Icons.Default.Chat, "Enquiry", Routes.ComingSoonScreen),
@@ -206,7 +219,7 @@ fun ProfileScreen(navController: NavController) {
                                     modifier = Modifier
                                         .weight(1f)
                                         .padding(4.dp)
-                                        .background(Color(0xFF64B5F6), RoundedCornerShape(12.dp))
+                                        .background(Color(0xFF2A8D8D), RoundedCornerShape(12.dp))
                                         .padding(vertical = 18.dp)
                                 )
                             }
@@ -217,7 +230,6 @@ fun ProfileScreen(navController: NavController) {
         }
     }
 }
-
 fun logoutUser(onLogoutSuccess: () -> Unit) {
     FirebaseAuth.getInstance().signOut()
     onLogoutSuccess()

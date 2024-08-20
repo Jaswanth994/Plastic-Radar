@@ -13,4 +13,6 @@ object Routes {
     var CollectorDetailsScreen = "collector_details_screen"
     var EditProfileScreen = "edit_profile_screen"
     var EditProfileImageScreen = "edit_profile_image_screen"
+    var AboutUsScreen = "about_us_screen"
+    var PoliciesScreen = "policies_screen"
 }

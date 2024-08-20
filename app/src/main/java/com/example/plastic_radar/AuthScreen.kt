@@ -222,6 +222,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -415,9 +417,11 @@ fun AuthScreen(onSignedIn: (FirebaseUser) -> Unit) {
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
                 trailingIcon = {
                     IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
-                        val icon =
-                            if (isPasswordVisible) Icons.Default.Lock else Icons.Default.Search
-                        Icon(imageVector = icon, contentDescription = "Toggle Password Visibility")
+                        val icon = if (isPasswordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = if (isPasswordVisible) "Hide password" else "Show password"
+                        )
                     }
                 },
                 colors = TextFieldDefaults.textFieldColors(

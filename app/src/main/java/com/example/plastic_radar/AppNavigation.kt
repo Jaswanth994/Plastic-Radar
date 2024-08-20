@@ -4,15 +4,17 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.plastic_radar.Profile.AboutUsScreen
 import com.example.plastic_radar.homescreen.HomeScreen
 import com.example.plastic_radar.Profile.ChangeCountryScreen
 import com.example.plastic_radar.Profile.ComingSoonScreen
 import com.example.plastic_radar.Profile.EditProfileImageScreen
 import com.example.plastic_radar.Profile.EditProfileScreen
+import com.example.plastic_radar.Profile.PoliciesScreen
 import com.example.plastic_radar.Profile.ProfileScreen
 import com.example.plastic_radar.Profile.ScrapOrderHistoryScreen
+
 import com.example.plastic_radar.collectorscreen.CollectorDetailsScreen
-import com.example.plastic_radar.collectorscreen.CollectorScreen
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -67,7 +69,7 @@ fun AppNavigation() {
         }
 
         composable("collector"){
-            CollectorScreen()
+            CollectorScreen(navController)
         }
 
         composable(Routes.ComingSoonScreen){
@@ -87,6 +89,13 @@ fun AppNavigation() {
 
         composable(Routes.EditProfileImageScreen){
             EditProfileImageScreen(navController)
+        }
+        composable(Routes.AboutUsScreen){
+            AboutUsScreen(navController)
+        }
+
+        composable(Routes.PoliciesScreen){
+            PoliciesScreen(navController)
         }
     }
 }

@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
-
 @Composable
 fun SplashScreen(navController: NavController) {
     var showText by remember { mutableStateOf(false) }
@@ -32,6 +31,7 @@ fun SplashScreen(navController: NavController) {
     val context = LocalContext.current
     val sharedPreferences: SharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
     val isOnboardingShown = sharedPreferences.getBoolean("onboarding_shown", false)
+    val isUserSignedIn = sharedPreferences.getBoolean("user_signed_in", false) // Assuming you store this flag when the user signs in
 
     // Rotation and scaling animation
     val rotationAndScaleAnimation = rememberInfiniteTransition()
@@ -39,7 +39,7 @@ fun SplashScreen(navController: NavController) {
         initialValue = 0f,
         targetValue = 360f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 3000, easing = LinearEasing), // Slower rotation
+            animation = tween(durationMillis = 3000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         )
     )
@@ -48,25 +48,31 @@ fun SplashScreen(navController: NavController) {
         initialValue = 0.5f,
         targetValue = 1.5f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 3000, easing = FastOutSlowInEasing), // Sync with rotation speed
+            animation = tween(durationMillis = 3000, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         )
     )
 
     LaunchedEffect(Unit) {
-        delay(3000) // Wait for the logo to complete one full rotation
-        logoAnimationComplete = true // Logo returns to its original position
-        showText = true // Show text after logo attains straight position
-        delay(1500) // Display the text for 1.5 seconds
-        navController.navigate(Routes.onboardingScreen) {
-            popUpTo(Routes.SplashScreen) { inclusive = true }
+        delay(3000)
+        logoAnimationComplete = true
+        showText = true
+        delay(1500)
+        if (isOnboardingShown ) {
+            navController.navigate(Routes.AuthOrMainScreen) { // Navigate to home screen if onboarding is shown and user is signed in
+                popUpTo(Routes.SplashScreen) { inclusive = true }
+            }
+        } else {
+            navController.navigate(Routes.onboardingScreen) { // Otherwise, show onboarding
+                popUpTo(Routes.SplashScreen) { inclusive = true }
+            }
         }
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF2F4F4F)), // Beige background color
+            .background(Color(0xFF2F4F4F)),
         contentAlignment = Alignment.Center
     ) {
         if (!logoAnimationComplete) {
