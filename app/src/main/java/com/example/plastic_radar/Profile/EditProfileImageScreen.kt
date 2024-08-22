@@ -1,6 +1,10 @@
 package com.example.plastic_radar.Profile
 
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
@@ -36,15 +41,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditProfileImageScreen(navController: NavController) {
@@ -53,7 +60,28 @@ fun EditProfileImageScreen(navController: NavController) {
     val storageRef = FirebaseStorage.getInstance().reference
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
     val context = LocalContext.current
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isGranted ->
+            if (!isGranted) {
+                Toast.makeText(context, "Permission required to access images", Toast.LENGTH_SHORT).show()
+            }
+        }
+    )
+
+    // Request permission for reading external storage
+    LaunchedEffect(Unit) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+    }
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         selectedImageUri = uri
     }
 
@@ -63,7 +91,7 @@ fun EditProfileImageScreen(navController: NavController) {
                 title = { Text("Edit Profile Image") },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
@@ -78,7 +106,6 @@ fun EditProfileImageScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             selectedImageUri?.let { uri ->
-                // Display the selected image
                 Image(
                     painter = rememberImagePainter(uri),
                     contentDescription = null,
@@ -88,7 +115,6 @@ fun EditProfileImageScreen(navController: NavController) {
                         .background(Color.Gray)
                 )
             } ?: run {
-                // Display a placeholder if no image is selected
                 Box(
                     modifier = Modifier
                         .size(150.dp)
@@ -108,7 +134,7 @@ fun EditProfileImageScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(onClick = { launcher.launch("image/*") }) {
+            Button(onClick = { imagePickerLauncher.launch("image/*") }) {
                 Text("Select Image")
             }
 
@@ -130,10 +156,13 @@ fun EditProfileImageScreen(navController: NavController) {
                                             Toast.makeText(context, "Profile Image Updated", Toast.LENGTH_SHORT).show()
                                             navController.navigateUp()
                                         }
+                                        .addOnFailureListener { e ->
+                                            Toast.makeText(context, "Failed to update Firestore: ${e.message}", Toast.LENGTH_SHORT).show()
+                                        }
                                 }
                             }
-                        }.addOnFailureListener {
-                            Toast.makeText(context, "Image Upload Failed", Toast.LENGTH_SHORT).show()
+                        }.addOnFailureListener { e ->
+                            Toast.makeText(context, "Image Upload Failed: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

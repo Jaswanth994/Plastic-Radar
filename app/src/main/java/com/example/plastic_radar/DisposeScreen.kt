@@ -84,20 +84,20 @@ import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DisposeScreen(navContoller: NavHostController) {
+fun DisposeScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Select Address", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
-                    IconButton(onClick = { navContoller.popBackStack() }) {
+                    IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
         }
     ) { paddingValues ->
-        AddressFormContent(navContoller,paddingValues)
+        AddressFormContent(navController,paddingValues)
     }
 
 }
@@ -106,6 +106,7 @@ fun DisposeScreen(navContoller: NavHostController) {
 @Composable
 fun AddressFormContent(navContoller: NavController,paddingValues: PaddingValues) {
     var selectedOptions by remember { mutableStateOf(setOf<String>()) }
+    var selectedQuantity by remember { mutableStateOf<String?>(null) }
     val availableOptions = listOf("Nylon", "Hard-Plastic", "Soft-Plastic", "PVC", "PET", "Acrylic")
     val quantity = listOf("Bulk Quantity", "Small Quantity")
 
@@ -357,11 +358,12 @@ fun AddressFormContent(navContoller: NavController,paddingValues: PaddingValues)
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 2.dp)
-                .background(gr),
+                .background(gr)
         ) {
             Text(
                 text = "Select Type of Plastic",
                 fontWeight = FontWeight.Bold,
+                color = Color.Black,
                 modifier = Modifier.padding(8.dp)
             )
         }
@@ -406,6 +408,7 @@ fun AddressFormContent(navContoller: NavController,paddingValues: PaddingValues)
             Text(
                 text = "Select Quantity of Plastic",
                 fontWeight = FontWeight.Bold,
+                color = Color.Black,
                 modifier = Modifier.padding(8.dp)
             )
         }
@@ -464,8 +467,9 @@ fun AddressFormContent(navContoller: NavController,paddingValues: PaddingValues)
                     )
 
                     saveOrderToFirestore(userId, order, firestore)
+                    navContoller.navigate(Routes.ScrapOrderHistoryScreen)
                 }
-                navContoller.navigate(Routes.ScrapOrderHistoryScreen)
+
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -507,6 +511,7 @@ fun ScheduleDatePicker(@SuppressLint("RestrictedApi") context: android.content.C
             text = if (selectedDate.isEmpty()) "Select Schedule Date" else "Scheduled Date: $selectedDate",
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(8.dp),
+            color = Color.Black,
             textAlign = TextAlign.Center
         )
     }

@@ -24,7 +24,7 @@ import com.example.plastic_radar.ui.theme.Plastic_RadarTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
-class MainActivity : ComponentActivity() {
+class   MainActivity : ComponentActivity() {
     private val auth: FirebaseAuth by lazy { Firebase.auth }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -90,6 +90,23 @@ dependencies {
 
     implementation (libs.androidx.navigation.compose)
     implementation (libs.coil.compose)
+    implementation (libs.firebase.auth.ktx)
+
     implementation (libs.accompanist.permissions)
+
+
+    implementation (libs.androidx.ui.v140)
+    implementation (libs.androidx.material.v140)
+    implementation (libs.androidx.ui.tooling.preview.v140)
+    debugImplementation (libs.ui.tooling)
+
+//// Firebase
+//    implementation (libs.firebase.auth.v2350)
+//    implementation (libs.firebase.firestore.v2450)
+//    implementation (libs.firebase.storage)
+
+// Activity Result API
+    implementation (libs.androidx.activity.compose.v180)
+    implementation (libs.coil.compose.v240)
 
 }

@@ -50,8 +50,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.plastic_radar.firbase.Order
 import com.example.plastic_radar.firbase.OrderRepository
-//import com.example.plastic_radar.firbase.Order
-//import com.example.plastic_radar.firbase.OrderRepository
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
